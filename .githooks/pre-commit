@@ -54,6 +54,9 @@ done < <(git diff --cached --name-only --diff-filter=ACMR -z)
 PADROES="$(git rev-parse --git-dir)/info/padroes-proibidos"
 if [[ -f "$PADROES" ]]; then
     while IFS= read -r -d '' path; do
+        # submódulo (modo 160000): não é arquivo deste repositório
+        read -r mode _ < <(git ls-files --stage -- "$path")
+        [[ "${mode:-}" == "160000" ]] && continue
         if git diff --cached --numstat -- "$path" | grep -q '^-'; then
             echo "pre-commit: AVISO binário (confira à mão) -> $path" >&2
             continue
