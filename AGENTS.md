@@ -10,6 +10,7 @@ Implementação RTL-para-GDSII do processador RISC-V **CV32E40P** (OpenHW Group)
 
 Leia nesta ordem:
 
+0. `docs/estado-atual.md`: onde o projeto está, o próximo passo e as decisões em aberto. **Atualize no fim de cada sessão.**
 1. `docs/requisitos-professor.md`: o que o projeto exige. **Manda em tudo.** Se um script, decisão ou documento contradiz um requisito, o erro é nosso.
 2. `docs/plano-de-trabalho.md`: o que a dupla está fazendo agora.
 3. `docs/metodo-de-trabalho.md`: como trabalhamos (fonte primária, estudos, nível das decisões).

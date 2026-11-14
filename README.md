@@ -30,6 +30,7 @@ cv32e40p (Solderpad Hardware License).*
 | Floorplan, alimentação, placement, árvore de clock, roteamento, acabamento (`04` a `09`) | scripts prontos; rodam depois da síntese aceita, com os estudos E09 e E10 antes |
 
 Os resultados entram aqui quando cada etapa passar nos critérios de aceite.
+O detalhe do que está em andamento fica em [docs/estado-atual.md](docs/estado-atual.md).
 
 ## Como o projeto é feito
 
