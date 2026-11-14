@@ -1,0 +1,28 @@
+CV32E40P RTL-to-GDSII na SAED32
+Copyright 2026 Alanna Santos e Apolonio Neto
+
+Este projeto foi desenvolvido na residência CI Expert, polo UFCG,
+trilha de Physical Design. Os arquivos de autoria dos autores são
+distribuídos sob a Apache License, Version 2.0 (arquivo LICENSE).
+
+Material de terceiros:
+
+- third_party/cv32e40p: RTL do processador CV32E40P, da OpenHW Group,
+  incluído como submódulo Git, sem alterações (tag cv32e40p_v1.8.3).
+  Distribuído sob a Solderpad Hardware License, version 0.51 (arquivo
+  third_party/cv32e40p/LICENSE); alguns arquivos indicam versões
+  posteriores da Solderpad no próprio cabeçalho.
+
+- constraints/cv32e40p_baseline.sdc: derivado de
+  third_party/cv32e40p/constraints/cv32e40p_core.sdc,
+  Copyright 2020 Silicon Labs, Inc. Este arquivo e seus derivados são
+  distribuídos sob a Solderpad Hardware License, Version 2.0
+  (https://solderpad.org/licenses/SHL-2.0/). As alterações estão
+  descritas no cabeçalho do arquivo.
+
+- docs/img/cv32e40p_diagrama_blocos.png e docs/img/cv32e40p_pipeline.png:
+  figuras da documentação do CV32E40P (OpenHW Group), copiadas de
+  third_party/cv32e40p/docs/images/, sob a mesma Solderpad Hardware License.
+
+A tecnologia SAED32 (Synopsys Armenia Educational Design Kit) e as
+ferramentas Synopsys não fazem parte deste repositório.

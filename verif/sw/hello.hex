@@ -1,0 +1,72 @@
+// Programa Hello World para CV32E40P (BOOT_ADDR=0x180)
+// Codificado à mão em RV32I (little-endian, byte por linha)
+//
+// Mapa de memória do testbench (mm_ram.sv):
+//   0x1000_0000 → stdout: escreve word; testbench exibe print_wdata[7:0]
+//   0x2000_0004 → exit:   escreve 0 para sinalizar sucesso
+//
+// Programa:
+//   lui  t0, 0x10000       ; t0 = 0x1000_0000 (stdout)
+//   lui  t1, 0x20000       ; t1 = 0x2000_0000 (base de exit)
+//   addi t2, x0, 'H'(72)  ; imprime cada caractere com sw t2, 0(t0)
+//   ...
+//   sw   x0, 4(t1)         ; exit(0) → 0x2000_0004 = 0
+//   jal  x0, 0             ; loop infinito (simulação encerra antes)
+
+@00000180
+// lui t0, 0x10000  → 0x100002B7
+B7 02 00 10
+// lui t1, 0x20000  → 0x20000337
+37 03 00 20
+// addi t2, x0, 'H'=0x48  → 0x04800393
+93 03 80 04
+// sw t2, 0(t0)  → 0x0072A023
+23 A0 72 00
+// addi t2, x0, 'e'=0x65  → 0x06500393
+93 03 50 06
+// sw t2, 0(t0)
+23 A0 72 00
+// addi t2, x0, 'l'=0x6C  → 0x06C00393
+93 03 C0 06
+// sw t2, 0(t0)
+23 A0 72 00
+// addi t2, x0, 'l'=0x6C
+93 03 C0 06
+// sw t2, 0(t0)
+23 A0 72 00
+// addi t2, x0, 'o'=0x6F  → 0x06F00393
+93 03 F0 06
+// sw t2, 0(t0)
+23 A0 72 00
+// addi t2, x0, ' '=0x20  → 0x02000393
+93 03 00 02
+// sw t2, 0(t0)
+23 A0 72 00
+// addi t2, x0, 'W'=0x57  → 0x05700393
+93 03 70 05
+// sw t2, 0(t0)
+23 A0 72 00
+// addi t2, x0, 'o'=0x6F
+93 03 F0 06
+// sw t2, 0(t0)
+23 A0 72 00
+// addi t2, x0, 'r'=0x72  → 0x07200393
+93 03 20 07
+// sw t2, 0(t0)
+23 A0 72 00
+// addi t2, x0, 'l'=0x6C
+93 03 C0 06
+// sw t2, 0(t0)
+23 A0 72 00
+// addi t2, x0, 'd'=0x64  → 0x06400393
+93 03 40 06
+// sw t2, 0(t0)
+23 A0 72 00
+// addi t2, x0, '\n'=0x0A  → 0x00A00393
+93 03 A0 00
+// sw t2, 0(t0)
+23 A0 72 00
+// sw x0, 4(t1)   exit(0) → 0x00032223
+23 22 03 00
+// jal x0, 0   loop infinito → 0x0000006F
+6F 00 00 00

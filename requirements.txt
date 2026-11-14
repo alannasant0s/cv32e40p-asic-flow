@@ -1,0 +1,7 @@
+# Dependências Python do lado do servidor.
+#
+# Vazio de propósito: tudo que roda no servidor Linux (parsers de relatório,
+# meta.json, metrics.csv) usa só a biblioteca padrão do Python e precisa
+# continuar compatível com Python >= 3.6 (decisão "Python no servidor só com a biblioteca padrão", docs/decisions.md).
+# As dependências de análise (pandas, pyarrow, matplotlib) são só do Windows
+# e ficam em requirements-analysis.txt.

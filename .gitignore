@@ -1,0 +1,150 @@
+# ---------------------------------------------------------------------------
+# Regra 1 do AGENTS.md: nenhum dado de biblioteca / PDK / saída de ferramenta
+# no Git, nunca. O hook de pre-commit em .githooks/ aplica a mesma lista aos
+# arquivos em stage.
+# ---------------------------------------------------------------------------
+
+# Saídas das rodadas (uma pasta imutável por rodada, só no servidor)
+runs/
+
+# Dados de biblioteca / PDK
+sym_libs/   # cópia da biblioteca feita por script de setup rodado dentro do repo
+*.db
+*.lib
+*.lib.gz
+*.ndm
+*.ndm/
+*.nlib/
+*.tf
+*.lef
+*.itf
+*.tluplus
+*.nxtgrd
+*.plib
+*.frame
+*.frame.gz
+runsets/
+*.rs
+
+# Saídas de ferramenta e bancos de dados intermediários
+*.ddc
+*.svf
+*.gds
+*.gds.gz
+*.gds2
+*.oas
+*.spef
+*.spef.gz
+*.sdf
+*.sdf.gz
+*.sbpf
+*.mr
+*.pvl
+*.syn
+*.key
+alib-*/
+*.lib_cache/
+
+# Arquivos de configuração/log que o Verdi cria sozinho ao abrir (não geramos
+# nós, não são determinísticos entre sessões)
+novas.conf
+novas.rc
+verdiLog/
+
+# Filelist gerada por scripts/gen_filelist.sh (make clean já remove; aqui só
+# por segurança contra um "git add -A" desatento)
+flist_rtl.f
+
+# Formas de onda de simulação e arquivos de atividade
+*.fsdb
+*.vpd
+*.vcd
+*.vcd.gz
+*.saif
+*.wlf
+*.shm/
+*.trn
+*.dsn
+
+# Logs, relatórios e diretórios de rascunho das ferramentas de EDA
+# (relatórios e logs de rodadas oficiais podem ser versionados à parte, conferidos;
+#  ver a decisão "O que entra no Git" em docs/decisions.md)
+*.log
+*.rpt
+*.tmp
+*.ems
+fc_output.txt
+lm_output.txt
+.vcs/
+csrc/
+simv*
+work/
+WORK/
+HDL_LIBRARIES/
+DEFAULT.*
+INCA_libs/
+xcelium.d/
+transcript
+vsim.wlf
+ucli.key
+vc_hdrs.h
+command.log
+*_command.log
+filenames*.log
+compile.log
+run.log
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+
+# Editores e sistema operacional
+.DS_Store
+*~
+*.swp
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Ambiente local (caminhos reais do servidor; só o template é versionado)
+config/env.sh
+
+# Arquivos locais de ferramentas de IA (pessoais, nunca commitados)
+CLAUDE.local.md
+
+# Formality (pasta de trabalho e logs automáticos)
+FM_WORK/
+formality*.log
+fm_shell_command*.log
+
+# Arquivos de travamento do Fusion Compiler (stack trace, snapshot, core dump)
+Synopsys_stack_trace_*.txt
+crte_*.txt
+core.*
+
+# Mapas de camadas do PDK (licenciados)
+*.map
+signoff_fix_drc_run/
+
+# Arquivos soltos que o Fusion Compiler, o VC SpyGlass e o Formality criam na
+# pasta onde são abertos
+default-*.svf
+.graph_data.txt
+.vcstPref
+vcst_rtdb/
+FM_INFO/
+formality_svf/
+legalizer_debug_plots/
+# Fica só no servidor até o pipeline ganhar testes
+results/metricas_long.csv
+
+# Retrato do servidor gerado por "make probe" (scripts/env_probe.sh): máquina,
+# caminhos e licenças. Fica só local; nunca vai para o repositório.
+docs/server-env.md

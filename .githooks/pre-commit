@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# Autores: Alanna Santos e Apolonio Neto. Projeto da dupla na residência CI Expert,
+# polo UFCG (trilha de Physical Design), 2026.
+# Hook de pre-commit: aplica a regra 1 do AGENTS.md.
+#   - rejeita arquivos em stage cuja extensão está na lista de bloqueio
+#     (dados de biblioteca / saída de ferramenta)
+#   - rejeita arquivos em stage maiores que MAX_BYTES (5 MB)
+#   - rejeita qualquer coisa dentro de runs/ ou de um diretório runsets/
+# Instalação:  git config core.hooksPath .githooks   (ver README, "Hooks do Git")
+# Contornar com --no-verify é proibido pelas regras do projeto.
+set -euo pipefail
+
+MAX_BYTES=$((5 * 1024 * 1024))
+
+# Extensões comparadas sem distinção de maiúsculas com o fim do caminho.
+# .v .sv .sdc NÃO estão aqui de propósito: são código-fonte do projeto.
+BLOCKED_EXT='db|lib|lib\.gz|ndm|nlib|tf|lef|gds|gds\.gz|gds2|oas|itf|tluplus|nxtgrd|plib|frame|spef|spef\.gz|sdf|sdf\.gz|fsdb|vpd|vcd|vcd\.gz|saif|wlf|shm|svf|ddc|rs'
+BLOCKED_DIR='^(runs/|.*/runs/|runsets/|.*/runsets/)'
+
+fail=0
+
+while IFS= read -r -d '' path; do
+    lower=$(printf '%s' "$path" | tr '[:upper:]' '[:lower:]')
+
+    if [[ "$lower" =~ ^.*\.($BLOCKED_EXT)$ ]]; then
+        echo "pre-commit: BLOQUEADO extensão   -> $path" >&2
+        fail=1
+        continue
+    fi
+    if [[ "$lower" =~ $BLOCKED_DIR ]]; then
+        echo "pre-commit: BLOQUEADO diretório  -> $path" >&2
+        fail=1
+        continue
+    fi
+
+    # Tamanho do blob em stage (não do arquivo na árvore de trabalho).
+    # Entradas de submódulo (gitlinks, modo 160000) apontam para commits que
+    # não existem neste repositório, então são puladas.
+    read -r mode blob _ < <(git ls-files --stage -- "$path")
+    if [[ "${mode:-}" != "160000" && -n "${blob:-}" ]]; then
+        size=$(git cat-file -s "$blob")
+        if (( size > MAX_BYTES )); then
+            echo "pre-commit: BLOQUEADO tamanho ${size} B > ${MAX_BYTES} B -> $path" >&2
+            fail=1
+        fi
+    fi
+done < <(git diff --cached --name-only --diff-filter=ACMR -z)
+
+# Conteúdo proibido (nome do servidor, servidor de licença, logins, nomes de
+# material confidencial). Os padrões ficam num arquivo LOCAL, fora do Git, para
+# o próprio hook não publicar esses nomes: .git/info/padroes-proibidos, uma
+# expressão regular (grep -E, sem distinguir maiúsculas) por linha.
+# Imagens e PDFs não são lidos por texto: confira-os à mão antes do commit.
+PADROES="$(git rev-parse --git-dir)/info/padroes-proibidos"
+if [[ -f "$PADROES" ]]; then
+    while IFS= read -r -d '' path; do
+        if git diff --cached --numstat -- "$path" | grep -q '^-'; then
+            echo "pre-commit: AVISO binário (confira à mão) -> $path" >&2
+            continue
+        fi
+        if git show ":$path" | grep -n -i -E -f "$PADROES" >/dev/null 2>&1; then
+            echo "pre-commit: BLOQUEADO conteúdo proibido -> $path" >&2
+            git show ":$path" | grep -n -i -E -f "$PADROES" | head -3 >&2
+            fail=1
+        fi
+    done < <(git diff --cached --name-only --diff-filter=ACMR -z)
+fi
+
+if (( fail )); then
+    cat >&2 <<'MSG'
+
+pre-commit: commit rejeitado (regra 1 do AGENTS.md).
+  Dados de biblioteca, PDK e saída de ferramenta nunca entram no Git, e nenhum arquivo pode passar de 5 MB.
+  Tire os arquivos do stage:   git restore --staged <caminho>
+  NÃO use --no-verify.
+MSG
+    exit 1
+fi
+exit 0
