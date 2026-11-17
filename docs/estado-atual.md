@@ -13,8 +13,11 @@ cada sessão, no mesmo commit das mudanças.
 - O repositório começa com os scripts do fluxo prontos (simulação, lint, NDM,
   síntese `01` a `03`, físico `04` a `09`, Formality), o método de trabalho, os
   critérios de aceite, as decisões vigentes e os estudos E01 a E10.
-- **A dupla ainda não rodou nenhuma etapa neste repositório.** Nenhum número
-  de resultado vale até a dupla rodar e conferir com os critérios.
+- **Etapa 0 concluída pela Alanna (2026-11-17):** clone na conta dela, submódulo
+  em `cv32e40p_v1.8.3`, hook ativo, filelist de síntese gerada (33 arquivos,
+  clock gate da SAED32). Falta a etapa 0 do Apolônio (acesso ao repositório e
+  token com o repositório novo).
+- Nenhum número de resultado vale até a dupla rodar e conferir com os critérios.
 - Os scripts foram validados de ponta a ponta em 2026-11-17 (NDM, `01` a
   `03` e Formality, numa pasta separada): rodam sem erro, o `report_pvt` dá
   "no PVT mismatches" nos três corners, os relatórios saem nos três corners,
@@ -26,7 +29,11 @@ cada sessão, no mesmo commit das mudanças.
 
 ## Próximo passo
 
-`docs/plano-de-trabalho.md`, etapa 0 (preparar o ambiente):
+`docs/plano-de-trabalho.md`, **etapa 1** (entender o processador: diagrama de
+blocos, pipeline, interfaces OBI, interrupções; estudo E04, passos 1 e 2) e
+mandar ao professor a pergunta dos atrasos de E/S com alternativas.
+
+Etapa 0, para quem ainda não fez:
 
 ```bash
 git clone --recurse-submodules https://github.com/alannasant0s/cv32e40p-asic-flow.git
