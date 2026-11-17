@@ -58,7 +58,12 @@ def inline(t):
 def codeblock(text):
     # uma linha de código por linha de tabela, para o bloco poder quebrar
     # entre páginas sem estourar a altura
-    rows = [[Preformatted(ln if ln else " ", code)] for ln in text.split("\n")]
+    # Linha comprida quebra dentro do quadro (antes vazava para fora da página).
+    # 95 caracteres cabem na largura útil com Consolas 8,6 pt; a continuação
+    # começa com "  " para mostrar que é a mesma linha de comando.
+    rows = [[Preformatted(ln if ln else " ", code, maxLineLength=95,
+                          splitChars=" ,]", newLineChars="  ")]
+            for ln in text.split("\n")]
     t = Table(rows, colWidths=[A4[0] - 36 * mm - 20], splitByRow=1)
     t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#f2f2f2")),
                            ("BOX", (0, 0), (-1, -1), 0.5, colors.HexColor("#d0d0d0")),
