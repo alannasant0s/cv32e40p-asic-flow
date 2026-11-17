@@ -13,6 +13,9 @@ cada sessão, no mesmo commit das mudanças.
 - O repositório começa com os scripts do fluxo prontos (simulação, lint, NDM,
   síntese `01` a `03`, físico `04` a `09`, Formality), o método de trabalho, os
   critérios de aceite, as decisões vigentes e os estudos E01 a E10.
+- **NDM da HVT gerada pela Alanna (2026-11-17):** 0 erros, os 4 corners certos
+  (`ss0p95v125c` como base). Síntese em andamento: rodada
+  `runs/pnr_hvt_20261117-170523` (bloco 1.1 feito).
 - **Etapa 0 concluída pela Alanna (2026-11-17):** clone na conta dela, submódulo
   em `cv32e40p_v1.8.3`, hook ativo, filelist de síntese gerada (33 arquivos,
   clock gate da SAED32). Falta a etapa 0 do Apolônio (acesso ao repositório e
@@ -32,6 +35,9 @@ cada sessão, no mesmo commit das mudanças.
 `docs/plano-de-trabalho.md`, **etapa 1** (entender o processador: diagrama de
 blocos, pipeline, interfaces OBI, interrupções; estudo E04, passos 1 e 2) e
 mandar ao professor a pergunta dos atrasos de E/S com alternativas.
+
+Para rodar a síntese linha por linha: `docs/passo-a-passo-sintese.md` (gerado
+dos scripts por `scripts/docs/gera_passo_a_passo.py`; mudou um script, gere de novo).
 
 Etapa 0, para quem ainda não fez:
 
