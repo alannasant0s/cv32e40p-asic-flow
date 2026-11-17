@@ -46,10 +46,10 @@ elaborate $DESIGN -parameters $PARAMS
 # CONFERIR: elaborate termina com 1, e current_design mostra o nome com os
 # parâmetros (cv32e40p_top_COREV_PULP0_..._NUM_MHPMCOUNTERS1).
 # set_top_module faz o link do topo (liga o projeto às células da
-# biblioteca). Rodando à mão logo depois do elaborate, ele só avisa LNK-067
-# "already linked" e devolve 0, sem problema. Em segundo plano
-# (run_01_a_03.tcl) ele é necessário: sem ele, o 02 para em create_mode com
-# DES-149 "cannot be auto-linked".
+# biblioteca). É aqui que a NDM da HVT é usada de fato: aparece
+# "User units loaded from library 'saed32hvt_c' (LNK-040)" e o comando
+# devolve 1. Sem ele, o 02 para em create_mode com DES-149 "cannot be
+# auto-linked".
 set_top_module $DESIGN_ELAB
 current_design
 # Hierarquia do RTL (conferida neste servidor). Cada nível de recuo é um
