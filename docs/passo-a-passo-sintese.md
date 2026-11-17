@@ -192,7 +192,7 @@ Flat: a síntese desfaz os submódulos (if_stage, id_stage, ex_stage...) e otimi
 set_app_options -name compile.flow.autoungroup -value true
 ```
 
-> **Conferir:** a coluna User-value mostra true.
+> **Conferir:** a coluna User-value mostra true. A coluna System-default também mostra true: o Fusion Compiler já desfaz a hierarquia por padrão. O comando deixa a decisão explícita no script, sem depender do padrão da ferramenta.
 
 ```
 report_app_options compile.flow.autoungroup

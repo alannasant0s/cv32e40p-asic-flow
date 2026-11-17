@@ -13,9 +13,10 @@ cada sessão, no mesmo commit das mudanças.
 - O repositório começa com os scripts do fluxo prontos (simulação, lint, NDM,
   síntese `01` a `03`, físico `04` a `09`, Formality), o método de trabalho, os
   critérios de aceite, as decisões vigentes e os estudos E01 a E10.
-- **NDM da HVT gerada pela Alanna (2026-11-17):** 0 erros, os 4 corners certos
-  (`ss0p95v125c` como base). Síntese em andamento: rodada
-  `runs/pnr_hvt_20261117-170523` (bloco 1.1 feito).
+- **Síntese em andamento (Alanna, 2026-11-17):** rodada `pnr_hvt_20261117-170523`.
+  NDM ok; script 01 completo (salvo em `cv32e40p_top_init`); script 02 até o
+  bloco 2.6, com os critérios 02.1, 02.2 e 02.3 cumpridos. Registro bloco a
+  bloco em `docs/rodadas/pnr_hvt_20261117-170523.md`.
 - **Etapa 0 concluída pela Alanna (2026-11-17):** clone na conta dela, submódulo
   em `cv32e40p_v1.8.3`, hook ativo, filelist de síntese gerada (33 arquivos,
   clock gate da SAED32). Falta a etapa 0 do Apolônio (acesso ao repositório e

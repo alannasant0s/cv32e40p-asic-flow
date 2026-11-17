@@ -74,6 +74,9 @@ report_hierarchy -nosplit
 # é o core_i (cv32e40p_core), e tudo abaixo dele foi desfeito.
 set_app_options -name compile.flow.autoungroup -value true
 # CONFERIR: a coluna User-value mostra true.
+# A coluna System-default também mostra true: o Fusion Compiler já desfaz a
+# hierarquia por padrão. O comando deixa a decisão explícita no script, sem
+# depender do padrão da ferramenta.
 report_app_options compile.flow.autoungroup
 
 ### BLOCO 1.7 — Salvar ##########################################################
