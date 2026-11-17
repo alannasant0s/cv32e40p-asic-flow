@@ -67,6 +67,14 @@ erro, mas precisa ser escolhida de propósito e com justificativa.
    "que margem o senhor considera adequada para a síntese e para o
    sign-off?"
 
+## Evidência já observada
+
+- Rodada `pnr_hvt_20261117-170523` (bloco 3.2, `add_tie_cells`): o relatório
+  "Timer Settings" mostra `Variation Type: fixed_derate` e
+  `Clock Reconvergence Pessimism Removal: disabled`. Ou seja, o derate é fixo
+  (±5 %) e o CRPR está desligado. Falta achar o nome da opção que liga o CRPR
+  (passo 3) e decidir, com o professor, se ele deve ser ligado antes do CTS.
+
 ## Resultado anotado
 
 | Margem testada | Quem rodou | WNS ss antes | WNS ss depois | Observação |
