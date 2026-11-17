@@ -28,9 +28,11 @@ números para mudá-la).
 
 ## Fonte primária
 
-- `man compile_fusion` e a documentação de clock gating do Fusion Compiler:
-  nome da opção que liga ou desliga a inserção. `TODO(verify)`: o nome exato
-  da opção nesta versão.
+- `man set_clock_gating_objects` (conferido): a inserção automática é o
+  padrão para todos os objetos; `-exclude <hierarquia>` tira os registradores
+  dela da inserção; o comando vem antes do `compile_fusion`. Ler o `man`
+  inteiro, inclusive os exemplos.
+- `man report_clock_gating`: o que cada linha do resumo quer dizer.
 - A configuração de referência em `docs/decisions.md` (o que decidimos e por
   quê).
 
@@ -43,11 +45,15 @@ números para mudá-la).
    ferramenta inseriu.
    Atenção: o filtro `CGL*` pega juntos os do RTL e os inseridos pela
    ferramenta; a separação depende do nome da instância.
-3. Achar no manual o nome da opção que controla a inserção automática e
-   anotar a fonte (comando `man` e trecho).
-4. Desligar a inserção (opção achada no passo 3), rodar 01 a 03 de novo e
-   conferir que só sobram os do RTL. Comparar área, potência e timing com e
-   sem a inserção (é a única variável que muda entre as duas rodadas).
+3. Ler o `man set_clock_gating_objects` e entender o bloco 3.0b do
+   `03_synth.tcl` (`-exclude [get_cells core_i]`).
+4. Comparar duas rodadas que só diferem nisso: uma com o bloco 3.0b e outra
+   sem ele (comentado). Em cada uma: `rpt/03_clock_gating.rpt` (resumo) e
+   `grep -c CGLPPRX2_HVT outputs/cv32e40p_top_syn.v`. Com o 3.0b deve sobrar
+   um só clock gate, o do RTL (`sleep_unit_i/core_clock_gate_i/u_icg`).
+   Atenção: o `report_clock_gating` chama esse clock gate de
+   "Tool-Inserted"; confira pelo nome na netlist que ele é o do RTL. Anote
+   também área, potência e timing das duas rodadas.
 5. Se quisermos manter a inserção (contra a decisão registrada), aí sim levar
    ao professor os números do passo 4.
 

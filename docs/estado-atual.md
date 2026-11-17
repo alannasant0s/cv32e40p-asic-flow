@@ -6,15 +6,20 @@ polo UFCG (trilha de Physical Design), 2026.
 **Leia isto primeiro ao retomar o trabalho** (pessoa ou IA). Atualize no fim de
 cada sessão, no mesmo commit das mudanças.
 
-Última atualização: 2026-11-14.
+Última atualização: 2026-11-17.
 
 ## Onde estamos
 
 - O repositório começa com os scripts do fluxo prontos (simulação, lint, NDM,
   síntese `01` a `03`, físico `04` a `09`, Formality), o método de trabalho, os
   critérios de aceite, as decisões vigentes e os estudos E01 a E10.
-- **Nenhuma etapa foi rodada ainda neste repositório.** Nenhum número de
-  resultado vale até a dupla rodar e conferir com os critérios.
+- **A dupla ainda não rodou nenhuma etapa neste repositório.** Nenhum número
+  de resultado vale até a dupla rodar e conferir com os critérios.
+- Os scripts foram validados de ponta a ponta em 2026-11-17 (NDM, `01` a
+  `03` e Formality, numa pasta separada): rodam sem erro, o `report_pvt` dá
+  "no PVT mismatches" nos três corners, os relatórios saem nos três corners,
+  sobra só o clock gate do RTL e o Formality passa. Essa validação prova que
+  os scripts funcionam; os números dela não são resultado da dupla.
 - Entrega mais próxima: **síntese lógica do processador RISC-V CV32E40P**
   (HVT, 8 ns, três corners) **até o fim de novembro de 2026**
   (`docs/requisitos-professor.md`).
@@ -38,7 +43,7 @@ Depois: etapas 1 (entender o processador) a 6 (entrega da síntese).
 | Assunto | Situação | Onde |
 |---|---|---|
 | Corners (ss 0,95 V) | aplicado; a dupla prova no estudo E01 | ADR-006, E01 |
-| Inserção automática de clock gating | desligar: falta achar o nome da opção no `man` | ADR-009, E06 |
+| Inserção automática de clock gating | desligada no `03` (bloco 3.0b, fonte: `man set_clock_gating_objects`); a dupla confere no E06 | ADR-009, E06 |
 | Atrasos de E/S do SDC | premissa em estudo; perguntar ao professor com alternativas | ADR-007, E04 |
 | Violações elétricas na síntese | perguntar ao professor onde termina a síntese lógica | E03 |
 | Margens (derate, incerteza) | medir e perguntar ao professor | ADR-008, E08 |

@@ -62,6 +62,11 @@ Como procurar erros num log: `grep -n "^Error" <arquivo.log>`. No `fc_shell`,
 
 | Situação | Causa | O que fazer |
 |---|---|---|
+| `report_clock_gating` diz "Tool-Inserted Clock gates: 1" mesmo com a inserção desligada (bloco 3.0b) | o resumo classifica assim o clock gate do RTL | confira na netlist: `grep CGLPPRX2_HVT outputs/cv32e40p_top_syn.v` mostra só o `sleep_unit_i/core_clock_gate_i/u_icg`, que é o do RTL |
+| Avisos UIC-061 ("Implicitly setting the '-net_delay' / '-cell_delay' option for the set_timing_derate") no 02 | o `set_timing_derate` sem `-cell_delay`/`-net_delay` vale para os dois | esperado; não é erro (margens: estudo E08) |
+
+| Situação | Causa | O que fazer |
+|---|---|---|
 | `report_constraint` mostra `max_delay/setup 0.00 (MET)` | sem `-scenarios`, ele mostra só o cenário atual | use `report_constraint -scenarios [all_scenarios]` |
 | `CMD-001` "Cannot specify '-summary' with '-scenarios'" | o `report_qor -summary` não aceita `-scenarios` | use só `report_qor -summary` (ele já mostra os três corners) |
 | `UIC-058` "Scenario ... is not configured for setup/hold analysis: skipping" | o cenário não analisa aquilo | os três cenários analisam setup e hold (bloco 2.6); se aparecer, confira o `02_scenarios.tcl` |

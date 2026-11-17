@@ -174,13 +174,20 @@ Derate de ±5 % em clock e dados, nos três corners (`02_scenarios.tcl`, bloco
 
 ## ADR-009: Clock gating
 
-- **Status:** pendente nos scripts (E06)
+- **Status:** vigente nos scripts (a dupla confere no estudo E06)
+- **Fonte primária:** `man set_clock_gating_objects`: a inserção automática é
+  o padrão ("-include ... is the default for all objects in the design");
+  `-exclude <hierarquia>` tira todos os registradores dela; o comando tem que
+  vir antes do `compile_fusion`.
 - **Estudo:** `docs/estudos/E06-clock-gating.md`
 - **Nível:** júnior para cumprir; avançada para mudar
 
-Só o clock gating do RTL. A inserção automática de clock gating pela síntese
-deve ficar desligada; o nome da opção ainda vai ser confirmado no `man` (E06,
-passo 3), e só então entra no `03_synth.tcl`.
+Só o clock gating do RTL. O `03_synth.tcl`, bloco 3.0b, roda
+`set_clock_gating_objects -exclude [get_cells core_i]` e grava
+`rpt/03_clock_gating.rpt`. Resultado esperado: um único clock gate na
+netlist, o do RTL (`sleep_unit_i/core_clock_gate_i/u_icg`, célula
+`CGLPPRX2_HVT`). Atenção: o `report_clock_gating` classifica esse clock gate
+como "Tool-Inserted"; a netlist mostra que ele é o do RTL.
 
 ---
 
