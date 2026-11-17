@@ -26,7 +26,10 @@ set_svf $RUN_DIR/cv32e40p.svf
 # -technology: camadas de metal e regras de desenho da SAED32.
 # -ref_libs:   a NDM da HVT. Daqui para frente só existem células HVT.
 create_lib -technology $TECH_FILE -ref_libs $REFERENCE_LIBRARY $RUN_DIR/cv32e40p_lib
-# CONFERIR: sem "Error"; aparece "Loading library file ... saed32hvt_c.ndm".
+# CONFERIR: sem "Error"; aparece "Loading technology file ... saed32nm_1p9m.tf"
+# e o nome da biblioteca criada, {cv32e40p_lib}. O aviso TECH-025 (VIA1 com
+# "onGrid" e "onWireTrack") vem do arquivo de tecnologia e é esperado. A NDM
+# saed32hvt_c só é carregada de fato no 1.5 (mensagem LNK-040).
 
 ### BLOCO 1.4 — Ler o RTL ######################################################
 # analyze: lê os arquivos .sv da filelist e confere a sintaxe.

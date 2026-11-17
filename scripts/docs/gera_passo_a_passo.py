@@ -32,9 +32,12 @@ SCRIPTS = [
 ESPERADO = {
     "1.1": ["`### 00_tech_setup: família hvt, clock 8.0 ns, rodada .../runs/pnr_hvt_<data e hora>`. **Anote o nome da pasta da rodada.**"],
     "1.2": ["Responde `1`, sem erro."],
-    "1.3": ["Sem `Error`. A biblioteca `cv32e40p_lib` é criada dentro da pasta da rodada, usando a `saed32hvt_c.ndm`."],
+    "1.3": ["`Information: Loading technology file '.../saed32nm_1p9m.tf' (FILE-007)` e o nome da biblioteca criada: `{cv32e40p_lib}`.",
+            "Aviso TECH-025 (`Layer 'VIA1' 'onGrid' and 'onWireTrack' coexist`): vem do arquivo de tecnologia; esperado.",
+            "A NDM `saed32hvt_c` ainda não aparece aqui: ela só é carregada no 1.5."],
     "1.4": ["Várias linhas de leitura dos arquivos `.sv`; a **última linha é `1`**. Se for `0`, procure a primeira linha com `Error:`."],
     "1.5": ["`Presto compilation completed successfully`.",
+            "`Information: User units loaded from library 'saed32hvt_c' (LNK-040)`: aqui a NDM da HVT é usada de fato.",
             "`Module: cv32e40p_top_COREV_PULP0_..._NUM_MHPMCOUNTERS1, Ports: 379, Input: 266, Output: 113`: o bloco tem 379 portas.",
             "O `current_design` mostra o nome do topo com os parâmetros. O `report_hierarchy` lista os submódulos (if_stage, id_stage, ex_stage, load_store_unit, cs_registers, sleep_unit...)."],
     "1.6": ["`compile.flow.autoungroup` com `true` na coluna do valor do usuário."],

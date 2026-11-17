@@ -118,11 +118,13 @@ Cria a biblioteca do projeto (cv32e40p_lib, dentro da pasta da rodada). -technol
 create_lib -technology $TECH_FILE -ref_libs $REFERENCE_LIBRARY $RUN_DIR/cv32e40p_lib
 ```
 
-> **Conferir:** sem "Error"; aparece "Loading library file ... saed32hvt_c.ndm".
+> **Conferir:** sem "Error"; aparece "Loading technology file ... saed32nm_1p9m.tf" e o nome da biblioteca criada, {cv32e40p_lib}. O aviso TECH-025 (VIA1 com "onGrid" e "onWireTrack") vem do arquivo de tecnologia e é esperado. A NDM saed32hvt_c só é carregada de fato no 1.5 (mensagem LNK-040).
 
 **Deve aparecer:**
 
-- Sem `Error`. A biblioteca `cv32e40p_lib` é criada dentro da pasta da rodada, usando a `saed32hvt_c.ndm`.
+- `Information: Loading technology file '.../saed32nm_1p9m.tf' (FILE-007)` e o nome da biblioteca criada: `{cv32e40p_lib}`.
+- Aviso TECH-025 (`Layer 'VIA1' 'onGrid' and 'onWireTrack' coexist`): vem do arquivo de tecnologia; esperado.
+- A NDM `saed32hvt_c` ainda não aparece aqui: ela só é carregada no 1.5.
 
 Feito: ( )  Conferido: ( )
 
@@ -175,6 +177,7 @@ report_hierarchy -nosplit
 **Deve aparecer:**
 
 - `Presto compilation completed successfully`.
+- `Information: User units loaded from library 'saed32hvt_c' (LNK-040)`: aqui a NDM da HVT é usada de fato.
 - `Module: cv32e40p_top_COREV_PULP0_..._NUM_MHPMCOUNTERS1, Ports: 379, Input: 266, Output: 113`: o bloco tem 379 portas.
 - O `current_design` mostra o nome do topo com os parâmetros. O `report_hierarchy` lista os submódulos (if_stage, id_stage, ex_stage, load_store_unit, cs_registers, sleep_unit...).
 
