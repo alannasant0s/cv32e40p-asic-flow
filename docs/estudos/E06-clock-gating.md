@@ -57,6 +57,15 @@ números para mudá-la).
 5. Se quisermos manter a inserção (contra a decisão registrada), aí sim levar
    ao professor os números do passo 4.
 
+## Evidência já observada
+
+Rodada `pnr_hvt_20261117-170523`, com o bloco 3.0b (inserção automática
+desligada): 1 clock gate na netlist, o do RTL. Potência estimada no tt (sem
+atividade de simulação): 51 mW, ~50 mW de chaveamento. Numa síntese de teste
+anterior, com a inserção automática ligada, a estimativa tinha sido menor que
+1 mW. A diferença precisa ser entendida (passo 4) antes de qualquer conclusão:
+a estimativa sem atividade usa uma taxa de chaveamento padrão.
+
 ## Resultado anotado
 
 | Rodada | Quem rodou | Clock gates total | Do RTL | Inseridos pela ferramenta |

@@ -72,6 +72,14 @@ corrigidas, para propor ao professor onde termina a síntese lógica.
    síntese até uma etapa que corrija, se houver (o que o `man` mostrar no
    passo 1). Qual o senhor considera o fim da síntese lógica?"
 
+## Evidência já observada
+
+Rodada `pnr_hvt_20261117-170523` (03): transição / capacitância por corner:
+ff 55 / 1202, ss 560 / 1340, tt 308 / 1288. Contando cada rede uma vez, são
+1340 redes, igual ao "Nets with Violations" do `report_qor`. Redes que
+aparecem em mais corners e tipos: `core_i/useincr_addr_ex`, `core_i/N30553`,
+`core_i/N29574` (falta medir o fanout delas, passo 4).
+
 ## Resultado anotado
 
 | Etapa | Quem rodou | Transição ss / tt / ff | Capacitância ss / tt / ff | Redes únicas | Observação |
