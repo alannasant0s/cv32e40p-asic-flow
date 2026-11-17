@@ -61,3 +61,7 @@ netlist, mudando só a análise.
 ## Decisão
 <tema em docs/decisions.md; se avançada, a resposta do professor>
 ```
+
+## Provas de estudo
+
+- [Etapa 1 — Conhecer o processador](etapa1-prova.md): leitura resumida do manual do CV32E40P e questões (pipeline, portas, OBI, interrupções, clock gating, atrasos de E/S do SDC).
