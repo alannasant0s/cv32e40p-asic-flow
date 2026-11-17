@@ -36,7 +36,6 @@ Como procurar erros num log: `grep -n "^Error" <arquivo.log>`. No `fc_shell`,
 | `LNK-067` "already linked" e `set_top_module` devolve `0` | o `elaborate` já tinha feito o link | normal |
 | `DES-002` "Cannot find module" | o topo foi chamado pelo nome curto; depois do `elaborate` ele ganha os parâmetros no nome (`cv32e40p_top_COREV_PULP0_...`) | os scripts usam a variável `DESIGN_ELAB` com o nome completo |
 | `DES-149` "cannot be auto-linked" no `02` | faltou o `set_top_module` | o bloco 1.5 faz isso; confira se ele rodou |
-
 | Aviso TECH-025 (`Layer 'VIA1' 'onGrid' and 'onWireTrack' coexist`) no `create_lib` | vem do arquivo de tecnologia da SAED32 | esperado; não é erro |
 
 ## Script 02 (corners, cenários e constraints)
