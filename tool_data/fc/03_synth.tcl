@@ -53,6 +53,23 @@ set_dont_touch [get_lib_cells "*/${TIE_HIGH} */${TIE_LOW}"] false
 # ao pino é físico, não lógico: não é na síntese que se resolve. Se o DRC
 # acusar erros concentrados numa célula, ver docs/estudos/E05-or2x1.md.
 
+### BLOCO 3.0b — Sem clock gating automático ###################################
+# Decisão "Clock gating" em docs/decisions.md: o único clock gating é o do
+# RTL (o cv32e40p_clock_gate, com a CGLPPRX2). Por padrão, o compile_fusion
+# INSERE clock gates sozinho em registradores com sinal de habilitação: o
+# man set_clock_gating_objects diz que "-include" (gating normal) "is the
+# default for all objects in the design".
+# "-exclude <hierarquia>" tira da inserção todos os registradores dela (man,
+# exemplo "-exclude ADDER"). O core_i contém o processador inteiro. Tem que
+# vir ANTES do compile_fusion (man: "You must run the set_clock_gating_objects
+# command before running the compile command").
+# Estudo: docs/estudos/E06-clock-gating.md.
+set_clock_gating_objects -exclude [get_cells core_i]
+# CONFERIR: report_clock_gating_objects lista o core_i como excluído.
+report_clock_gating_objects
+# Depois da síntese (bloco 3.4), o report_clock_gating mostra quantos clock
+# gates existem; só devem sobrar os do RTL.
+
 ### BLOCO 3.1 — Traduzir o RTL em células ######################################
 # Troca a lógica genérica do elaborate por células reais da HVT (portas,
 # flip-flops), ainda sem otimizar. Leva alguns minutos.
@@ -119,6 +136,8 @@ report_constraint -all_violators -max_transition -max_capacitance -nosplit -scen
 # usa (ex.: IRQ_MASK no cv32e40p_pkg.sv), então não há caminho para checar.
 report_timing -from [all_inputs] -to [all_outputs] -scenarios [all_scenarios] -report_by scenario -max_paths 10 -nosplit > $RPT_DIR/03_timing_in2out.rpt
 report_power -scenarios func_tt -hierarchy                       > $RPT_DIR/03_power_tt.rpt
+# Clock gates: só os do RTL (bloco 3.0b; estudo E06).
+report_clock_gating                                              > $RPT_DIR/03_clock_gating.rpt
 report_constraint -all_violators -scenarios [all_scenarios]      > $RPT_DIR/03_violators.rpt
 
 ### BLOCO 3.5 — Salvar #########################################################
