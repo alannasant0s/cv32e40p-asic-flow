@@ -471,7 +471,8 @@ write_sdc -output $OUT_DIR/02_constraints_lidas.sdc
 **Deve aparecer:**
 
 - O `check_timing` mostra muitos avisos **TCK-001** "unconstrained ... Reason: 'case constant'". São esperados: vêm do `scan_cg_en_i` fixo em 0 (SDC) e de registradores das extensões PULP, que estão desligadas e ficam com valor constante. Não deve haver entrada sem atraso nem flip-flop sem clock.
-- O `report_case_analysis` mostra só o `scan_cg_en_i = 0`.
+- O `report_case_analysis` mostra só o `scan_cg_en_i = 0`; o `report_exceptions` vem vazio (nenhum false path nem multicycle).
+- O `write_sdc` avisa `Multiply cell derates are skipped!` e `Multiply net derates are skipped!`: é um tipo de margem que não usamos; as margens de ±5 % aparecem no SDC gravado (`set_timing_derate`).
 
 Feito: ( )  Conferido: ( )
 

@@ -42,6 +42,7 @@ Como procurar erros num log: `grep -n "^Error" <arquivo.log>`. No `fc_shell`,
 
 | Mensagem | Causa | O que fazer |
 |---|---|---|
+| `write_sdc` avisa `Multiply cell derates are skipped!` / `Multiply net derates are skipped!` | é um tipo de margem ("multiply derate") que o projeto não usa | esperado; as margens de ±5 % estão no SDC gravado (`set_timing_derate`) |
 | `PVT-030` no `report_pvt` | um corner pegou a biblioteca errada (por exemplo, faltou o número de processo) | o bloco 2.4 define processo, tensão e temperatura de cada corner. O certo é `no PVT mismatches` nos três. Se aparecer, confira se o seu `02_scenarios.tcl` é o do repositório (`git status`) e se a NDM foi gerada com o `create_ndm.tcl` atual |
 | `TCK-012` no `check_timing` (entrada sem atraso) | o SDC lido uma vez só vale só no cenário atual | o bloco 2.5 lê o SDC em cada cenário; confira se o laço rodou nos três |
 | `TCK-001` "unconstrained ... case constant" | lógica constante: o processador está sem as extensões PULP (`COREV_PULP=0`) | normal |
