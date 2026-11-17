@@ -54,6 +54,15 @@ o comportamento dela.
 6. Escrever com as nossas palavras, em três linhas, como explicar o relatório
    ao professor.
 
+## Evidência já observada
+
+Rodada `pnr_hvt_20261117-170523`, `report_qor -summary -significant_digits 3`:
+setup ss −1,287 / TNS −201,551 / NVE 1011; tt −0,130 / −0,535 / 19; ff +0,762.
+A linha `Design` (setup) é −1,287 / −201,551 / 1011: igual ao ss, e o TNS não é
+a soma (seria −202,086). No hold, a linha `Design` repete o ff (−0,003). Falta o
+teste do passo 4 (desligar o setup do ss) para separar "pior cenário" de "pior
+por ponto de chegada".
+
 ## Resultado anotado
 
 | Rodada | Quem rodou | WNS ss / tt / ff | WNS "Design" | TNS e NVE ss / tt / ff / Design | Bate com o pior? |
