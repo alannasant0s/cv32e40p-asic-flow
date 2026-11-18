@@ -75,13 +75,22 @@ Não há métrica numérica nesta etapa: o resultado é binário, passou ou não
 
 ## Avisos do VCS (não bloqueantes)
 
-- `RT-NCMUCS` em `cv32e40p_load_store_unit.sv:419`: `unique case` sem `default`. É do RTL original do OpenHW, não alterado por nós. Não afeta a simulação deste teste.
+- `RT-NCMUCS` em `cv32e40p_load_store_unit.sv:419`: `unique case` sem `default`. É do RTL original do OpenHW, não alterado por nós. Não afeta a simulação deste teste. Aparece duas vezes no tempo 0, durante o
+  reset, antes de o núcleo executar qualquer instrução.
+- `AOUP` em `cv32e40p_tb_subsystem.sv:81` (2 vezes): o testbench do OpenHW passa
+  os parâmetros `PULP_XPULP` e `PULP_CLUSTER`, que não existem mais no núcleo
+  v1.8.3 (hoje se chamam `COREV_PULP` e `COREV_CLUSTER`). O VCS ignora os dois.
+  Como usamos o PULP desligado, não muda nada.
+- `IDTS` em `mm_ram.sv`, linhas 255, 256, 259 e 260 (4 vezes): o testbench usa
+  variáveis do tipo `string` dentro de um `always @*`, e o VCS avisa que elas
+  ficam fora da lista de sensibilidade. São só as mensagens de erro do
+  testbench; não é RTL do processador.
 
 ## Resultado anotado
 
 | Rodada (hash do git) | Quem rodou / quem conferiu | Hello World + EXIT SUCCESS? | Avisos além do RT-NCMUCS |
 |---|---|---|---|
-| | | | |
+| 2026-11-18, `15f9a5c`, VCS X-2025.06-SP2 | Alanna / Alanna | sim: "Hello World", `EXIT SUCCESS`, `$finish` em 360 ns | 2 `AOUP` e 4 `IDTS`, todos do testbench (explicados acima) |
 
 ## Limitação
 

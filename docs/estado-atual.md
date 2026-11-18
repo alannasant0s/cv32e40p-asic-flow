@@ -6,7 +6,7 @@ polo UFCG (trilha de Physical Design), 2026.
 **Leia isto primeiro ao retomar o trabalho** (pessoa ou IA). Atualize no fim de
 cada sessão, no mesmo commit das mudanças.
 
-Última atualização: 2026-11-17.
+Última atualização: 2026-11-18.
 
 ## Onde estamos
 
@@ -22,6 +22,9 @@ cada sessão, no mesmo commit das mudanças.
   cobrado no 06). Critérios 02.1 a 02.5 cumpridos; 03.1 ainda não. **Formality: Verification SUCCEEDED** (2243 pontos,
   0 falhas; critério 03.7 cumprido). O registrador do RTL sem par na netlist
   (`aligner_ready_q`) não tinha carga e foi removido pela síntese.
+- **Simulação do RTL passou (Alanna, 2026-11-18, `15f9a5c`):** "Hello World"
+  e `EXIT SUCCESS` em 360 ns (`docs/sim-vcs.md`). Avisos só do testbench e o
+  `RT-NCMUCS` já conhecido. Falta o lint.
 - **Etapa 0 concluída pela Alanna (2026-11-17):** clone na conta dela, submódulo
   em `cv32e40p_v1.8.3`, hook ativo, filelist de síntese gerada (33 arquivos,
   clock gate da SAED32). Falta a etapa 0 do Apolônio (acesso ao repositório e
@@ -47,7 +50,7 @@ cada sessão, no mesmo commit das mudanças.
    (E03). Aguardando a resposta. Margens e CRPR (E08) e TIEH/TIEL ficam para
    depois, se ele não comentar.
 3. Conferências de 18/11 feitas (03.5, 03.6, 03.7 cumpridos; potência nos
-   três corners). Próximo: a etapa 2 (`docs/sim-vcs.md` e `docs/lint.md`).
+   três corners). Etapa 2: simulação passou (18/11); falta o lint (`docs/lint.md`).
 
 Em paralelo:
 
