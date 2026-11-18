@@ -35,7 +35,7 @@ Referência da nossa primeira rodada do lint (anotar pasta e hash na tabela "Res
 | error | ErrorAnalyzeBBox | 1 | Justificado (abaixo) |
 | error | W71 | 1 | Justificado (abaixo) |
 | warning | SM_PNP | 8 | **Ponto de atenção.** `unique0 case` com condições que podem se sobrepor: `controller` (5), `cs_registers` (2), `fifo` (1). O `unique0` avisa a síntese que só uma condição vale de cada vez. Se duas valessem juntas, a simulação do RTL e o circuito poderiam se comportar diferente. O código é do OpenHW, verificado, e não é alterado. Quem confirma é a simulação de portas (GLS, a simulação da netlist), comparando com a simulação do RTL. |
-| warning | SM_URMI | 1 | Mesma causa do ErrorAnalyzeBBox: a instância `u_icg` usa uma célula da biblioteca (`CGLPPRX2_RVT`, porque o lint lê o RTL sem a macro de família). Esperado. |
+| warning | SM_URMI | 1 | Mesma causa do ErrorAnalyzeBBox: a instância `u_icg` usa uma célula da biblioteca (`CGLPPRX2_HVT`: o lint lê o RTL com `SYNTHESIS` e `VT_HVT`, como a síntese). Esperado. |
 | warning | VC_WRN_FUNC | 2 | `$unsigned()` aplicado a um sinal que já é sem sinal (`alu.sv:261`, `id_stage.sv:661`). Não muda nada. |
 | warning | STARC05-2.1.4.5 | 4 | Estilo: operador lógico (`&&`, `||`) onde a regra STARC prefere bit a bit. Mesmo resultado em sinal de 1 bit. |
 | warning | STARC05-2.1.5.3 | 4 | Estilo: condição com vetor (ex.: `if (vetor)`, que quer dizer "diferente de zero"). Mesmo caso do W224. |
@@ -51,7 +51,7 @@ Referência da nossa primeira rodada do lint (anotar pasta e hash na tabela "Res
 
 ### Os 2 errors
 
-1. **ErrorAnalyzeBBox: módulo `CGLPPRX2_RVT` sem definição** (`rtl/cv32e40p_clock_gate_saed32.sv`). **Esperado.** `CGLPPRX2_<VT>` é a célula de clock gate da biblioteca SAED32 (configuração de referência em `docs/decisions.md`). Ela existe na biblioteca, não no RTL. Por isso o lint não acha o código dela e a trata como caixa-preta: só conhece as portas, sem o que tem dentro. Na síntese, a célula vem da NDM.
+1. **ErrorAnalyzeBBox: módulo `CGLPPRX2_HVT` sem definição** (`rtl/cv32e40p_clock_gate_saed32.sv`). **Esperado.** `CGLPPRX2_<VT>` é a célula de clock gate da biblioteca SAED32 (configuração de referência em `docs/decisions.md`). Ela existe na biblioteca, não no RTL. Por isso o lint não acha o código dela e a trata como caixa-preta: só conhece as portas, sem o que tem dentro. Na síntese, a célula vem da NDM.
 2. **W71: `case (csr_addr_i)` sem `default`** (`third_party/cv32e40p/rtl/cv32e40p_cs_registers.sv`, linha 920, bloco combinacional). **Não é problema real.** A falta de `default` num bloco combinacional pode criar um latch. Mas aqui:
    - antes do `case`, o RTL dá um valor padrão aos sinais (linhas 905–918, por exemplo `mie_n = mie_q;`);
    - a elaboração do lint conta **0 latches**.

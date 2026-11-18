@@ -33,7 +33,7 @@ set_app_var enable_lint true
 configure_lint_setup -goal lint_rtl
 
 # ==== Ler e montar o RTL [confirmado] =======================================
-analyze -format sverilog -vcs "-f $FLIST +define+SYNTHESIS"
+analyze -format sverilog -vcs "-f $FLIST +define+SYNTHESIS+VT_HVT"
 elaborate $TOP -parameters $PARAMS
 
 # ==== Rodar e salvar o relatório [confirmado] ===============================
