@@ -41,9 +41,11 @@ cada sessão, no mesmo commit das mudanças.
 1. **Apolônio:** clonar o repositório novo e reproduzir a rodada pelo
    `docs/passo-a-passo-sintese.md` (cada bloco tem os números de 17/11 para
    comparar).
-2. Mandar ao professor o relatório da síntese e as perguntas abertas: atrasos
-   de entrada e saída (E04), regras elétricas na síntese (E03), margens e
-   CRPR (E08), células TIEH/TIEL.
+2. **Mensagem ao professor enviada (2026-11-18)**, com os prints do resumo de
+   timing e da folga registrador → registrador. Perguntas: manter ou mudar os
+   atrasos de entrada e saída (E04) e onde corrigir as violações elétricas
+   (E03). Aguardando a resposta. Margens e CRPR (E08) e TIEH/TIEL ficam para
+   depois, se ele não comentar.
 3. Conferências de 18/11 feitas (03.5, 03.6, 03.7 cumpridos; potência nos
    três corners). Próximo: a etapa 2 (`docs/sim-vcs.md` e `docs/lint.md`).
 
