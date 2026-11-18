@@ -61,7 +61,7 @@ sai do estudo e da resposta do professor. Não inventar um limite antes disso.
 | 03.6 | a conferir com o `get_attribute` do critério |
 | 03.7 | SUCCEEDED (2243 pontos, 0 falhas). Falta explicar o ponto sem par (`aligner_ready_q_reg`), como pede o `docs/flow-spec.md` |
 | 03.8 | registrado: 51.644 µm², 14.759 células, potência tt ≈ 51 mW (estimativa) |
-| 03.9 | 1 clock gate, instância do RTL (`sleep_unit_i/core_clock_gate_i/u_icg`). O `report_clock_gating` o chama de "Tool-Inserted" e diz "Pre-Existing 0": explicar no E06 antes de dar como cumprido |
+| 03.9 | cumprido: 1 clock gate na netlist, o do RTL (`sleep_unit_i/core_clock_gate_i/u_icg`, `CGLPPRX2_HVT`) |
 
 ## Etapa 04 — floorplan
 

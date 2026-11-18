@@ -51,9 +51,7 @@ números para mudá-la).
    sem ele (comentado). Em cada uma: `rpt/03_clock_gating.rpt` (resumo) e
    `grep -c CGLPPRX2_HVT outputs/cv32e40p_top_syn.v`. Com o 3.0b deve sobrar
    um só clock gate, o do RTL (`sleep_unit_i/core_clock_gate_i/u_icg`).
-   Atenção: o `report_clock_gating` chama esse clock gate de
-   "Tool-Inserted"; confira pelo nome na netlist que ele é o do RTL. Anote
-   também área, potência e timing das duas rodadas.
+   Anote também área, potência e timing das duas rodadas.
 5. Se quisermos manter a inserção (contra a decisão registrada), aí sim levar
    ao professor os números do passo 4.
 

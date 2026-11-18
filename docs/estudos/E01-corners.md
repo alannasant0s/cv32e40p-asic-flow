@@ -51,10 +51,9 @@ Databook da biblioteca, na instalação do PDK:
   ff do conjunto nominal e o ss de outro conjunto é exatamente a mistura que
   este estudo existe para evitar.
 - **Tabela 1.4 (p. 18), "Operating conditions":** diz que a biblioteca é
-  especificada para 1,05 V e cita 300 MHz como frequência de referência. A
-  faixa de tensão escrita nela é, literalmente, de 0,945 V a 1,061 V. **Esse
-  máximo não bate com o ff de 1,16 V** da Tabela 1.6 (seria +1 %, e não
-  +10 %). Parece um erro do próprio documento. Por isso não usamos essa
+  especificada para 1,05 V e cita uma frequência de referência. **O máximo
+  da faixa de tensão escrita nela não bate com o ff de 1,16 V** da
+  Tabela 1.6 (confira na p. 18). Parece um erro do próprio documento. Por isso não usamos essa
   faixa como argumento. Anotem isso ao ler: fonte primária também pode ter
   erro, e o certo é dizer onde.
 

@@ -135,7 +135,14 @@ report_constraint -all_violators -max_transition -max_capacitance -nosplit -scen
 # mtvec_addr_i[7:0], irq_i[15:12]... são esperados: são bits que o RTL não
 # usa (ex.: IRQ_MASK no cv32e40p_pkg.sv), então não há caminho para checar.
 report_timing -from [all_inputs] -to [all_outputs] -scenarios [all_scenarios] -report_by scenario -max_paths 10 -nosplit > $RPT_DIR/03_timing_in2out.rpt
-report_power -scenarios func_tt -hierarchy                       > $RPT_DIR/03_power_tt.rpt
+# Potência nos três corners (requisito: três corners em todos os relatórios).
+# A síntese otimizou a potência só no tt (02_scenarios.tcl, bloco 2.6). Aqui
+# a potência é ligada no ss e no ff só para gerar o relatório e desligada
+# logo depois: nada é otimizado entre os dois comandos, a netlist não muda.
+# É uma estimativa: sem atividade de simulação.
+foreach s {func_ss func_ff} { set_scenario_status $s -leakage_power true -dynamic_power true }
+foreach c {ss tt ff} { report_power -scenarios func_$c -hierarchy > $RPT_DIR/03_power_$c.rpt }
+foreach s {func_ss func_ff} { set_scenario_status $s -leakage_power false -dynamic_power false }
 # Clock gates: só os do RTL (bloco 3.0b; estudo E06).
 report_clock_gating                                              > $RPT_DIR/03_clock_gating.rpt
 report_constraint -all_violators -scenarios [all_scenarios]      > $RPT_DIR/03_violators.rpt

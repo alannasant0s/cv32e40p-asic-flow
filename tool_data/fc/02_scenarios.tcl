@@ -101,11 +101,12 @@ report_clocks > $RPT_DIR/02_clocks.rpt
 # (man set_scenario_status: -min_capacitance precisa de -hold).
 # Se o ff tivesse só hold e o ss/tt só setup, o ff não apareceria no setup
 # e a linha "Design" pareceria uma cópia do ss.
-# Potência: só no tt. É uma ESTIMATIVA: sem atividade de simulação (SAIF),
+# Potência: otimizada só no tt (o 03, bloco 3.4, relata nos três). É uma ESTIMATIVA: sem atividade de simulação (SAIF),
 # a ferramenta supõe uma taxa de chaveamento padrão. O pior vazamento seria
 # no ff a 125 °C, que não é analisado (ver estudo E08).
-# Por que a síntese mostra hold negativo no ff: o clock ainda é ideal; o
-# hold é corrigido depois do CTS (07). Ver estudo E07.
+# Por que a síntese mostra hold negativo no ff: num caminho curto, a
+# incerteza de hold (0,10 ns) pode passar o atraso do caminho. O hold é
+# corrigido depois do CTS (07). Ver estudo E07.
 set_scenario_status func_ss -setup true -hold true -leakage_power false -dynamic_power false
 set_scenario_status func_tt -setup true -hold true -leakage_power true  -dynamic_power true
 set_scenario_status func_ff -setup true -hold true -leakage_power false -dynamic_power false

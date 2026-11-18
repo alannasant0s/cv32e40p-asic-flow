@@ -125,11 +125,11 @@ módulos. Nos relatórios, dizer "flat abaixo do core_i".
 - Os três corners são do mesmo conjunto da Tabela 1.6 (o de 1,05 V). Não se
   misturam corners de conjuntos diferentes: o `ss0p75v125c`, por exemplo, é do
   conjunto "middle voltage".
-- A faixa de tensão da Tabela 1.4 (0,945 a 1,061 V) não bate com o ff de
+- A faixa de tensão da Tabela 1.4 não bate com o ff de
   1,16 V da Tabela 1.6; por isso o argumento é a Tabela 1.6.
 - **Setup e hold são analisados e relatados nos três corners** (requisito).
-  Potência: no tt. Relatar a potência só no tt é uma exceção a confirmar com o
-  professor.
+  Potência: otimizada no tt e relatada nos três corners
+  (`03_power_ss.rpt`, `03_power_tt.rpt`, `03_power_ff.rpt`).
 - O corner de checagem serve para medir a inversão de temperatura (E01,
   passo 7).
 
@@ -186,8 +186,7 @@ Só o clock gating do RTL. O `03_synth.tcl`, bloco 3.0b, roda
 `set_clock_gating_objects -exclude [get_cells core_i]` e grava
 `rpt/03_clock_gating.rpt`. Resultado esperado: um único clock gate na
 netlist, o do RTL (`sleep_unit_i/core_clock_gate_i/u_icg`, célula
-`CGLPPRX2_HVT`). Atenção: o `report_clock_gating` classifica esse clock gate
-como "Tool-Inserted"; a netlist mostra que ele é o do RTL.
+`CGLPPRX2_HVT`).
 
 ---
 

@@ -43,9 +43,11 @@ cada sessão, no mesmo commit das mudanças.
    comparar).
 2. Mandar ao professor o relatório da síntese e as perguntas abertas: atrasos
    de entrada e saída (E04), regras elétricas na síntese (E03), margens e
-   CRPR (E08), células TIEH/TIEL, potência só no tt.
-3. Estudar a diferença de potência com e sem clock gating automático (E06) e
-   por que a síntese removeu o `aligner_ready_q`.
+   CRPR (E08), células TIEH/TIEL.
+3. Rodar as conferências pendentes da rodada (seção "Conferências pendentes"
+   em `docs/rodadas/pnr_hvt_20261117-170523.md`): 03.5, 03.6, potência nos
+   três corners, `aligner_ready_q` e FM-399. Depois, a etapa 2 (`docs/sim-vcs.md`
+   e `docs/lint.md`).
 
 Em paralelo:
 
@@ -78,7 +80,7 @@ Depois: etapas 1 (entender o processador) a 6 (entrega da síntese).
 | Violações elétricas na síntese | perguntar ao professor onde termina a síntese lógica | E03 |
 | Margens (derate, incerteza) | medir e perguntar ao professor | ADR-008, E08 |
 | TIEH/TIEL liberadas no `03` | levar como pergunta ao professor | ADR-010 |
-| Potência relatada só no tt | pedir a exceção ao professor ou relatar nos três corners | ADR-006 |
+| Potência nos três corners | relatada no `03` (bloco 3.4); falta rodar no bloco salvo de 17/11 | ADR-006 |
 | Relatórios e logs no Git | decidir se as rodadas oficiais entram (permitido pelo professor) | ADR-015 |
 | Restrições da árvore de clock | estudar antes do `07` | E09 |
 | Antena, densidade, LVS, pinos de alimentação | estudar antes do `08` | E10 |
@@ -89,7 +91,6 @@ Depois: etapas 1 (entender o processador) a 6 (entrega da síntese).
 2. Onde termina a síntese lógica diante das violações elétricas (E03).
 3. Margens adequadas para síntese e sign-off (E08).
 4. Liberar TIEH/TIEL na síntese (ADR-010).
-5. Potência só no tt ou nos três corners (ADR-006).
 
 ## Repositório
 

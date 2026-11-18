@@ -476,7 +476,7 @@ Feito: ( )  Conferido: ( )
 
 ### Bloco 2.6 — O que cada cenário analisa
 
-Setup E hold ligados nos TRÊS cenários. Assim o report_qor mostra cada corner numa linha própria, para setup e para hold. Atenção ao ler o report_qor -summary: a linha "Design" NÃO é um corner. É o resumo de todos os cenários: o WNS dela é o pior entre eles; TNS e NVE dela não são a soma (medido; o man não define essa linha; estudo E02). Com hold ligado, o min_cap também passa a ser checado no ss e no tt (man set_scenario_status: -min_capacitance precisa de -hold). Se o ff tivesse só hold e o ss/tt só setup, o ff não apareceria no setup e a linha "Design" pareceria uma cópia do ss. Potência: só no tt. É uma ESTIMATIVA: sem atividade de simulação (SAIF), a ferramenta supõe uma taxa de chaveamento padrão. O pior vazamento seria no ff a 125 °C, que não é analisado (ver estudo E08). Por que a síntese mostra hold negativo no ff: o clock ainda é ideal; o hold é corrigido depois do CTS (07). Ver estudo E07.
+Setup E hold ligados nos TRÊS cenários. Assim o report_qor mostra cada corner numa linha própria, para setup e para hold. Atenção ao ler o report_qor -summary: a linha "Design" NÃO é um corner. É o resumo de todos os cenários: o WNS dela é o pior entre eles; TNS e NVE dela não são a soma (medido; o man não define essa linha; estudo E02). Com hold ligado, o min_cap também passa a ser checado no ss e no tt (man set_scenario_status: -min_capacitance precisa de -hold). Se o ff tivesse só hold e o ss/tt só setup, o ff não apareceria no setup e a linha "Design" pareceria uma cópia do ss. Potência: otimizada só no tt (o 03, bloco 3.4, relata nos três). É uma ESTIMATIVA: sem atividade de simulação (SAIF), a ferramenta supõe uma taxa de chaveamento padrão. O pior vazamento seria no ff a 125 °C, que não é analisado (ver estudo E08). Por que a síntese mostra hold negativo no ff: num caminho curto, a incerteza de hold (0,10 ns) pode passar o atraso do caminho. O hold é corrigido depois do CTS (07). Ver estudo E07.
 
 ```
 set_scenario_status func_ss -setup true -hold true -leakage_power false -dynamic_power false
@@ -807,8 +807,18 @@ report_constraint -all_violators -max_transition -max_capacitance -nosplit -scen
 report_timing -from [all_inputs] -to [all_outputs] -scenarios [all_scenarios] -report_by scenario -max_paths 10 -nosplit > $RPT_DIR/03_timing_in2out.rpt
 ```
 
+Potência nos três corners (requisito: três corners em todos os relatórios). A síntese otimizou a potência só no tt (02_scenarios.tcl, bloco 2.6). Aqui a potência é ligada no ss e no ff só para gerar o relatório e desligada logo depois: nada é otimizado entre os dois comandos, a netlist não muda. É uma estimativa: sem atividade de simulação.
+
 ```
-report_power -scenarios func_tt -hierarchy                       > $RPT_DIR/03_power_tt.rpt
+foreach s {func_ss func_ff} { set_scenario_status $s -leakage_power true -dynamic_power true }
+```
+
+```
+foreach c {ss tt ff} { report_power -scenarios func_$c -hierarchy > $RPT_DIR/03_power_$c.rpt }
+```
+
+```
+foreach s {func_ss func_ff} { set_scenario_status $s -leakage_power false -dynamic_power false }
 ```
 
 Clock gates: só os do RTL (bloco 3.0b; estudo E06).
@@ -824,8 +834,8 @@ report_constraint -all_violators -scenarios [all_scenarios]      > $RPT_DIR/03_v
 **Deve aparecer:**
 
 - O `report_qor -summary` mostra **uma linha por cenário** em setup e em hold, mais a linha `Design` (o resumo, não um corner; estudo E02), com 3 casas decimais.
-- Os arquivos `03_timing_setup_{ss,tt,ff}.rpt`, `03_timing_hold_{ss,tt,ff}.rpt`, `03_violacoes_eletricas.rpt`, `03_timing_in2out.rpt`, `03_power_tt.rpt` e `03_clock_gating.rpt` aparecem em `rpt/`.
-- O `03_clock_gating.rpt` mostra **1** clock gate. O relatório o chama de "Tool-Inserted" (e "Pre-Existing 0"), mas a instância é a do RTL (`sleep_unit_i/core_clock_gate_i/u_icg`; confira na netlist depois do 3.5). Por que a ferramenta o classifica assim ainda está em estudo (E06).
+- Os arquivos `03_timing_setup_{ss,tt,ff}.rpt`, `03_timing_hold_{ss,tt,ff}.rpt`, `03_violacoes_eletricas.rpt`, `03_timing_in2out.rpt`, `03_power_ss.rpt`, `03_power_tt.rpt`, `03_power_ff.rpt` e `03_clock_gating.rpt` aparecem em `rpt/`.
+- O `03_clock_gating.rpt` mostra **1** clock gate: o do RTL (`sleep_unit_i/core_clock_gate_i/u_icg`; confira na netlist depois do 3.5).
 - Avisos TIM-010 no relatório entrada→saída, em bits que o RTL não usa (`boot_addr_i[1:0]`, bits reservados de `irq_i`...), são esperados.
 
 **Na rodada de 17/11:** `report_qor -summary`: setup ff +0,762, ss −1,287 (1011 caminhos), tt −0,130 (19); hold ff −0,003 (1), ss +0,229, tt +0,097; 1340 redes com violação elétrica. Folga registrador → registrador: ss +0,27, tt +2,48, ff +5,77 (fecha nos três). Potência tt ≈ 51 mW.
