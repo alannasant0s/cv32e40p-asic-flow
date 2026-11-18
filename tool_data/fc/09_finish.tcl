@@ -93,7 +93,7 @@ save_lib
 signoff_check_drc -check_all_runset_layers true
 
 ### BLOCO 9.4 — Relatórios finais ##############################################
-report_qor -summary -significant_digits 3                       > $RPT_DIR/09_qor_resumo.rpt
+qor_resumo $RPT_DIR/09_qor_resumo.rpt
 report_qor -scenarios [all_scenarios]                           > $RPT_DIR/09_qor.rpt
 # Setup e hold nos três corners, um arquivo por corner e por tipo.
 foreach c {ss tt ff} {

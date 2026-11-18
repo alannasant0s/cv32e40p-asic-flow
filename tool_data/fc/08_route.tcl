@@ -46,9 +46,9 @@ check_routes > $RPT_DIR/08_check_routes.rpt
 ### BLOCO 8.3 — Otimizar com os fios reais (antes do DRC final) ######################
 # route_opt refaz fios; por isso vem ANTES do DRC oficial e da correção.
 # route_opt: reajusta o timing com o atraso real dos fios.
-report_qor -summary
+qor_resumo
 route_opt
-report_qor -summary
+qor_resumo
 # Se o setup ainda violar (WNS negativo), rodar route_opt de novo.
 save_block
 save_lib
@@ -85,7 +85,7 @@ signoff_check_drc
 ### BLOCO 8.6 — Relatórios ######################################################
 report_qor
 report_qor -scenarios [all_scenarios]                           > $RPT_DIR/08_qor.rpt
-report_qor -summary -significant_digits 3                        > $RPT_DIR/08_qor_resumo.rpt
+qor_resumo $RPT_DIR/08_qor_resumo.rpt
 # Setup e hold nos três corners, um arquivo por corner e por tipo.
 foreach c {ss tt ff} {
     report_timing -scenarios func_$c -delay_type max -max_paths 10 -nosplit > $RPT_DIR/08_timing_setup_$c.rpt

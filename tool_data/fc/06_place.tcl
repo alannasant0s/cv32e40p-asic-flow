@@ -54,7 +54,7 @@ check_legality
 check_legality > $RPT_DIR/06_legality.rpt
 # Timing com as posições reais (fio estimado pela distância entre células).
 report_qor -scenarios [all_scenarios]                           > $RPT_DIR/06_qor.rpt
-report_qor -summary -significant_digits 3                        > $RPT_DIR/06_qor_resumo.rpt
+qor_resumo $RPT_DIR/06_qor_resumo.rpt
 report_qor
 # Setup e hold nos três corners, um arquivo por corner e por tipo.
 foreach c {ss tt ff} {

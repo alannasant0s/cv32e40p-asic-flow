@@ -775,11 +775,11 @@ Relatórios separados por corner, para setup, hold e violações elétricas. Ant
 > **Print:** o resumo. Uma linha por cenário (func_ss, func_tt, func_ff) em setup e em hold. -significant_digits 3: com 2 casas (padrão), -0,009 aparece como -0,01, e o critério (WNS > -0,01 ns) não dá para ler.
 
 ```
-report_qor -summary -significant_digits 3
+qor_resumo
 ```
 
 ```
-report_qor -summary -significant_digits 3                        > $RPT_DIR/03_qor_resumo.rpt
+qor_resumo $RPT_DIR/03_qor_resumo.rpt
 ```
 
 ```

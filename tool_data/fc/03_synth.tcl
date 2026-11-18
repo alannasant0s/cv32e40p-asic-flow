@@ -113,8 +113,8 @@ report_area > $RPT_DIR/03_area.rpt
 # e em hold.
 # -significant_digits 3: com 2 casas (padrão), -0,009 aparece como -0,01, e o
 # critério (WNS > -0,01 ns) não dá para ler.
-report_qor -summary -significant_digits 3
-report_qor -summary -significant_digits 3                        > $RPT_DIR/03_qor_resumo.rpt
+qor_resumo
+qor_resumo $RPT_DIR/03_qor_resumo.rpt
 report_qor -scenarios [all_scenarios]                            > $RPT_DIR/03_qor.rpt
 # Setup e hold de cada corner, os 10 piores caminhos de cada.
 foreach c {ss tt ff} {

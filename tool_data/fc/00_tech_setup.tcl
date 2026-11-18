@@ -96,4 +96,16 @@ set CLOCK_GATE     CGLPPRX2_HVT
 # Limites de transição, capacitância e fanout: os da biblioteca (ver constraints/cv32e40p_baseline.sdc),
 # por isso não há variável para eles aqui.
 
+# Resumo de timing por cenário (func_ss, func_tt, func_ff), setup e hold,
+# com 3 casas decimais. Sem argumento, mostra na tela; com um arquivo, grava.
+proc qor_resumo {{arquivo ""}} {
+    redirect -variable txt {report_qor -summary -significant_digits 3}
+    set linhas {}
+    foreach l [split $txt "\n"] {
+        if {![regexp {^Design\s+\((Setup|Hold)\)} $l]} { lappend linhas $l }
+    }
+    set txt [join $linhas "\n"]
+    if {$arquivo eq ""} { puts $txt } else { set f [open $arquivo w]; puts $f $txt; close $f }
+}
+
 puts "### 00_tech_setup: família $VT, clock ${CLK_PERIOD} ns, rodada $RUN_DIR"

@@ -64,7 +64,7 @@ report_clock_qor > $RPT_DIR/07_clock_qor.rpt
 # Timing agora com o clock real. O hold (func_ff) deve ter sido corrigido.
 report_qor
 report_qor -scenarios [all_scenarios]                           > $RPT_DIR/07_qor.rpt
-report_qor -summary -significant_digits 3                        > $RPT_DIR/07_qor_resumo.rpt
+qor_resumo $RPT_DIR/07_qor_resumo.rpt
 # Setup e hold nos três corners, um arquivo por corner e por tipo.
 foreach c {ss tt ff} {
     report_timing -scenarios func_$c -delay_type max -max_paths 10 -nosplit > $RPT_DIR/07_timing_setup_$c.rpt
