@@ -5,14 +5,16 @@ como bloco sem pads, com o **Synopsys Fusion Compiler** e a biblioteca
 educacional **SAED32** (32 nm), família HVT, a **8 ns (125 MHz)**, analisada em
 três corners.
 
-Projeto de Alanna Santos e Apolonio Neto na residência **CI Expert**, polo UFCG,
+Projeto de [Alanna Santos](https://github.com/alannasant0s) e
+[Apolonio Neto](https://github.com/apolonioneto) na residência **CI Expert**, polo UFCG,
 trilha de Physical Design (2026).
 
 > *English summary:* RTL-to-GDSII implementation of the OpenHW CV32E40P RISC-V
 > core (RV32IMC) as a padless hard block, using Synopsys Fusion Compiler and the
 > SAED32 32 nm educational library (HVT cells), at 8 ns (125 MHz), analysed in
-> three PVT corners. Every design decision is backed by a primary source and a
-> written study, and every stage has numeric acceptance criteria. Documentation
+> three PVT corners. Work in progress: logic synthesis done, physical stages
+> next. Each design decision is tied to a primary source and a written study
+> (studies in progress), and every stage has numeric acceptance criteria. Documentation
 > is in Brazilian Portuguese.
 
 ![Diagrama de blocos do CV32E40P](docs/img/cv32e40p_diagrama_blocos.png)
@@ -26,10 +28,25 @@ cv32e40p (Solderpad Hardware License).*
 |---|---|
 | Simulação do RTL (VCS) e lint | scripts prontos (`tool_data/vcs/`, `tool_data/lint/`) |
 | Biblioteca (NDM) e corners | scripts prontos; corners definidos pelo databook da biblioteca (estudo E01) |
-| **Síntese lógica** (scripts `01` a `03`) e Formality | **primeira rodada executada (17/11/2026), ainda não aceita**: Formality SUCCEEDED; registrador → registrador fecha nos três corners; setup de entradas/saídas e regras elétricas não passam nos critérios (estudos E04, E03, com perguntas ao professor). Entrega prevista para o fim de novembro de 2026 |
+| **Síntese lógica** (scripts `01` a `03`) e Formality | **primeira rodada executada (17/11/2026), ainda não aceita.** Setup de entradas e saídas no ss e no tt fora do critério (estudo E04); violações elétricas relatadas e explicadas, com zero exigido no placement (estudo E03). Perguntas enviadas ao professor em 18/11/2026, aguardando resposta. Entrega prevista para o fim de novembro de 2026 |
 | Floorplan, alimentação, placement, árvore de clock, roteamento, acabamento (`04` a `09`) | scripts prontos; rodam depois da síntese aceita, com os estudos E09 e E10 antes |
 
-Os resultados entram aqui quando cada etapa passar nos critérios de aceite.
+### Primeira rodada da síntese (17/11/2026, HVT, 8 ns)
+
+Folgas em ns; entre parênteses, o número de caminhos violados.
+
+| Corner | Setup | Hold | Registrador → registrador |
+|---|---|---|---|
+| ss 0,95 V 125 °C | −1,287 (1011) | +0,229 | +0,27 |
+| tt 1,05 V 25 °C | −0,130 (19) | +0,097 | +2,48 |
+| ff 1,16 V −40 °C | +0,762 | −0,003 (1) | +5,77 |
+
+Área de 51.644 µm², 14.759 células. Formality: 0 falhas. As violações de
+setup estão só nos caminhos de entrada e saída. Registro completo da rodada:
+[docs/rodadas/pnr_hvt_20261117-170523.md](docs/rodadas/pnr_hvt_20261117-170523.md).
+
+Os resultados finais de cada etapa entram aqui quando ela passar nos
+critérios de aceite.
 O detalhe do que está em andamento fica em [docs/estado-atual.md](docs/estado-atual.md).
 
 ## Como o projeto é feito
@@ -59,7 +76,7 @@ projeto físico:
 | Netlist | flat abaixo do `core_i` |
 | Corners | ss 0,95 V 125 °C (Cmax) · tt 1,05 V 25 °C (nominal) · ff 1,16 V −40 °C (Cmin); setup e hold nos três |
 | Restrições | SDC derivado do exemplo do upstream (`constraints/cv32e40p_baseline.sdc`) |
-| Ferramentas | VCS, VC SpyGlass, Library Manager, Fusion Compiler, Formality, IC Validator |
+| Ferramentas | VCS, VC SpyGlass, Library Manager, Fusion Compiler, Formality; IC Validator nas etapas físicas |
 
 ## Fluxo
 
