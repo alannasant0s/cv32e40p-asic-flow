@@ -24,7 +24,11 @@ cada sessão, no mesmo commit das mudanças.
   (`aligner_ready_q`) não tinha carga e foi removido pela síntese.
 - **Simulação do RTL passou (Alanna, 2026-11-18, `15f9a5c`):** "Hello World"
   e `EXIT SUCCESS` em 360 ns (`docs/sim-vcs.md`). Avisos só do testbench e o
-  `RT-NCMUCS` já conhecido. Falta o lint.
+  `RT-NCMUCS` já conhecido.
+- **Lint passou (Alanna, 2026-11-18, `lint_20261118-150448`):** 0 latches,
+  2613 bits de flip-flop; 2 errors, 228 warnings e 28 infos, iguais à
+  referência tipo a tipo, todos justificados (`docs/lint.md`). Etapa 2
+  concluída.
 - **Etapa 0 concluída pela Alanna (2026-11-17):** clone na conta dela, submódulo
   em `cv32e40p_v1.8.3`, hook ativo, filelist de síntese gerada (33 arquivos,
   clock gate da SAED32). Falta a etapa 0 do Apolônio (acesso ao repositório e
@@ -50,7 +54,8 @@ cada sessão, no mesmo commit das mudanças.
    (E03). Aguardando a resposta. Margens e CRPR (E08) e TIEH/TIEL ficam para
    depois, se ele não comentar.
 3. Conferências de 18/11 feitas (03.5, 03.6, 03.7 cumpridos; potência nos
-   três corners). Etapa 2: simulação passou (18/11); falta o lint (`docs/lint.md`).
+   três corners). Etapa 2 concluída (18/11): simulação e lint passaram (`docs/sim-vcs.md`,
+   `docs/lint.md`).
 
 Em paralelo:
 

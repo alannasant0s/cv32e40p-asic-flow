@@ -71,7 +71,7 @@ Todos os 17 tipos têm justificativa.
 
 | Rodada (pasta e hash do git) | Quem rodou / quem conferiu | Flip-flops / latches | errors / warnings / infos | Bate com a referência? |
 |---|---|---|---|---|
-| | | | | |
+| `lint_20261118-150448`, `15f9a5c` | Alanna / Alanna | 2613 / 0 | 2 / 228 / 28 | sim, tipo a tipo (os 17 tipos com a mesma quantidade da tabela acima) |
 
 ## Pendências
 
