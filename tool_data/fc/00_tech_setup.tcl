@@ -26,8 +26,8 @@ set DESIGN_ELAB ${DESIGN}_[string map {= "" , _} $PARAMS]
 # Período do clock em ns: 8 ns = 125 MHz, requisito do projeto (decisão do
 # clock em docs/decisions.md).
 # É menos da metade da frequência de referência do databook da SAED32
-# (300 MHz, Tabela 1.4, p. 18): com os corners certos (estudo E01), 8 ns não
-# é um clock difícil. Armadilha: com o ss de 0,75 V (de outro conjunto de
+# (Tabela 1.4, p. 18): com os corners certos (estudo E01), 8 ns não é um
+# clock difícil. Armadilha: com o ss de 0,75 V (de outro conjunto de
 # tensão) a HVT parece não fechar no ss. Ver docs/estudos/E01-corners.md.
 set CLK_PERIOD  8.0
 
