@@ -26,9 +26,9 @@
 #
 # Corners usados (estudo E01), conferidos no databook da biblioteca:
 #   /Tools/PDK/SAED32/EDK_Digital/doc/SAED32.28nm_Digital_Standard_Cell_Library_b100_01312012.pdf
-#   Tabela 1.4 (p. 18): biblioteca especificada para 1,05 V, 300 MHz. (A faixa
-#   escrita lá, 0,945 a 1,061 V, não bate com o ff de 1,16 V: o argumento
-#   que vale é a Tabela 1.6, abaixo.)
+#   Tabela 1.4 (p. 18): biblioteca especificada para 1,05 V. (A faixa de
+#   tensão escrita lá não bate com o ff de 1,16 V: o argumento que vale é a
+#   Tabela 1.6, abaixo.)
 #   Tabela 1.6 (p. 19): os corners vêm em TRÊS CONJUNTOS de tensão, e os três
 #   corners de um projeto saem do MESMO conjunto:
 #     nominal (1,05 V):  tt1p05 / ss0p95 / ff1p16   <- o nosso
