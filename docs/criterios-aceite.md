@@ -47,6 +47,22 @@ sai do estudo e da resposta do professor. Não inventar um limite antes disso.
 | 03.8 | Números da síntese registrados | área, número de células, potência do tt (estimativa, sem atividade real) |
 | 03.9 | Clock gating conforme a decisão registrada | estudo E06 |
 
+### Resultado da rodada `pnr_hvt_20261117-170523` (17/11/2026)
+
+| Critério | Situação |
+|---|---|
+| 02.1 a 02.5 | cumpridos |
+| 02.6 | derate ±5 % e incerteza 0,30 / 0,10 ns em uso; registrar no estudo E08 |
+| 03.1 | não passa: ss −1,287 ns e tt −0,130 ns (entradas e saídas; registrador → registrador fecha nos três). Estudo E04 |
+| 03.2 | relatado: ff −0,003 ns (1 caminho, clock ideal), ss +0,229, tt +0,097. Explicar no E07 |
+| 03.3 | não passa: 1340 redes únicas. Estudo E03 e pergunta ao professor |
+| 03.4 | entrada → saída: ss −0,14 ns (6 caminhos). Estudo E04 |
+| 03.5 | cumprido: `Hierarchical Cell Count: 1`, netlist com 2 módulos |
+| 03.6 | a conferir com o `get_attribute` do critério |
+| 03.7 | cumprido: Formality SUCCEEDED, 2243 pontos, 0 falhas |
+| 03.8 | registrado: 51.644 µm², 14.759 células, potência tt ≈ 51 mW (estimativa) |
+| 03.9 | cumprido: só o clock gate do RTL (estudo E06) |
+
 ## Etapa 04 — floorplan
 
 | # | Critério | Como conferir |

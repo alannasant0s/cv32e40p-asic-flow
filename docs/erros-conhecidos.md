@@ -16,6 +16,9 @@ Como procurar erros num log: `grep -n "^Error" <arquivo.log>`. No `fc_shell`,
 | `No such file` no `ndm_lib/saed32hvt_c.ndm` | a biblioteca ainda não foi gerada na sua conta | gerar com `lm_shell -x "set VT hvt" -file tool_data/fc/create_ndm.tcl -batch`. A biblioteca se gera com `lm_shell`, não com `fc_shell` |
 | `Information: Interrupting current command. (INT-2)` | Ctrl+C no console | no terminal, Ctrl+C interrompe; para copiar use Ctrl+Shift+C |
 | A ferramenta continua presa depois de fechar a janela do X2Go | fechar a janela não fecha o `fc_shell` | sempre `exit` no console. Para achar o que sobrou: `pgrep -u $USER -a fc_shell` e `kill <número>` |
+| `client_loop: send disconnect: Connection reset` | a conexão SSH caiu; o que rodava direto no terminal pode ter morrido junto | reconecte e confira: `pgrep -u $USER -a _shell` e o fim do log (`tail -5 <arquivo.log>`). Se o log fecha com "Thank you for using...", terminou. Rode sempre dentro do `tmux` (`tmux new -s fc`; voltar com `tmux attach -t fc`) |
+| `cd ~/cv32e40p-asic-flow` dá `ItemNotFoundException` | o comando foi digitado no PowerShell do Windows, antes do `ssh` | conecte primeiro (`ssh <servidor>`) e rode os comandos no prompt do servidor, não no `PS C:...>` do Windows |
+| `fatal: repository not found` ou erro 403 no `clone` | o token do GitHub não tem acesso ao repositório novo | no GitHub, edite o token e adicione o repositório `cv32e40p-asic-flow` |
 | `NDM-029` (biblioteca travada para edição) | outra sessão do `fc_shell` sua ainda está com a biblioteca aberta | feche a outra sessão (linha acima) e abra de novo |
 
 ## Git
@@ -76,6 +79,14 @@ Como procurar erros num log: `grep -n "^Error" <arquivo.log>`. No `fc_shell`,
 | `POW-046` / `POW-069` no `report_power` | estimativa de atividade sem simulação | normais |
 | Slack muito negativo no bloco 3.1 | o 3.1 só traduz o RTL em células, sem otimizar | normal antes da otimização; compare com o 3.2 |
 | Violações de regra elétrica (max_transition, max_capacitance) no fim da síntese | a síntese para antes das etapas físicas | por que e onde se corrigem: estudo E03 |
+
+## Formality
+
+| Mensagem | Causa | O que fazer |
+|---|---|---|
+| `FMR_ELAB-116` "unique case but some items may overlap", `FMR_VLOG-063` "Signed to unsigned assignment" | avisos do RTL do OpenHW (fifo, controller, ALU) | esperados; por causa deles o `status.rpt` avisa que o resultado "pode discordar de um simulador" |
+| `1(0) Unmatched reference(implementation) compare points` com `aligner_ready_q_reg` | registrador do RTL que a síntese removeu | se a verificação passa, a lógica ficou equivalente sem ele; o motivo da remoção está em estudo |
+| `breakpoint` "Unprocessed" no Guidance Summary | dicas do SVF que o Formality não precisou usar | o próprio Formality diz que podem ser ignoradas quando a verificação passa |
 
 ## Netlist
 

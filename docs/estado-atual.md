@@ -37,6 +37,17 @@ cada sessão, no mesmo commit das mudanças.
 
 ## Próximo passo
 
+1. **Apolônio:** clonar o repositório novo e reproduzir a rodada pelo
+   `docs/passo-a-passo-sintese.md` (cada bloco tem os números de 17/11 para
+   comparar).
+2. Mandar ao professor o relatório da síntese e as perguntas abertas: atrasos
+   de entrada e saída (E04), regras elétricas na síntese (E03), margens e
+   CRPR (E08), células TIEH/TIEL, potência só no tt.
+3. Estudar a diferença de potência com e sem clock gating automático (E06) e
+   por que a síntese removeu o `aligner_ready_q`.
+
+Em paralelo:
+
 `docs/plano-de-trabalho.md`, **etapa 1** (entender o processador: diagrama de
 blocos, pipeline, interfaces OBI, interrupções; estudo E04, passos 1 e 2) e
 mandar ao professor a pergunta dos atrasos de E/S com alternativas.

@@ -69,6 +69,25 @@ ESPERADO = {
     "3.5": ["`### 03_synth pronto`. Em `outputs/`: `cv32e40p_top_syn.v` (netlist) e `cv32e40p_top_syn.sdc`."],
 }
 
+# bloco -> o que a Alanna obteve na rodada pnr_hvt_20261117-170523 (17/11/2026).
+# Serve para quem reproduz comparar: os números devem bater (mesmo RTL, mesmos
+# scripts, mesma biblioteca). Se não baterem, pare e descubra por quê.
+REFERENCIA = {
+    "1.5": "25 módulos; topo com 379 portas; só flip-flops, nenhum latch; avisos VER-318 e VER-61 (do RTL). Banco de registradores com 1024 flip-flops (32 × 32 bits).",
+    "1.6": "`compile.flow.autoungroup`: Value `true`, User-value `true`.",
+    "2.4": "PVT-032 (no PVT mismatches) em ss, tt e ff; 12 avisos UIC-061.",
+    "2.5": "`clk_i 8.00 {0 4}`; dois avisos UIC-034 (clock redefinido ao ler o SDC nos três cenários).",
+    "2.6": "Setup e Hold `true` em `func_ss`, `func_tt` e `func_ff`; potência só no `func_tt`.",
+    "2.8": "313 avisos TCK-001, todos `case constant`; 0 erros. `report_case_analysis`: só `scan_cg_en_i = 0`.",
+    "3.0": "`1`, com aviso ATTR-12 (a mudança fica no bloco, não na biblioteca).",
+    "3.0b": "`Exclude | Both | core_i`.",
+    "3.1": "Cerca de 2 minutos. 10.927 células, 44.541 µm², 2.131 sequenciais, 1 clock gate (o do RTL). Pior caminho, antes de otimizar: ss −6,11, tt −4,30, ff −0,48 ns.",
+    "3.2": "Cerca de 4 min 40 s. `Tie cells: TIEL=114 TIEH=0`. 51.644 µm², 14.759 células, 2.130 sequenciais.",
+    "3.3": "`Hierarchical Cell Count: 1`.",
+    "3.4": "`report_qor -summary`: setup ff +0,762, ss −1,287 (1011 caminhos), tt −0,130 (19); hold ff −0,003 (1), ss +0,229, tt +0,097; 1340 redes com violação elétrica. Folga registrador → registrador: ss +0,27, tt +2,48, ff +5,77 (fecha nos três). Potência tt ≈ 51 mW.",
+    "3.5": "`cv32e40p_top_syn.v` com 2 módulos; avisos VW-007 (nomes de fios trocados pelo da porta).",
+}
+
 INICIO = """# Passo a passo — síntese lógica do processador RISC-V CV32E40P
 
 Autores: Alanna Santos e Apolonio Neto. Projeto da dupla na residência CI Expert,
@@ -81,6 +100,44 @@ discordarem, vale o script; gere o guia de novo.
 
 Biblioteca HVT, clock de 8 ns (125 MHz), três corners (ss 0,95 V 125 °C; tt
 1,05 V 25 °C; ff 1,16 V −40 °C), netlist flat abaixo do `core_i`.
+
+## Primeiro: o repositório mudou
+
+Em 14/11/2026 a dupla criou um **repositório novo e limpo**:
+`https://github.com/alannasant0s/cv32e40p-asic-flow`. Ele vai ser público
+(portfólio), então só tem o que pode ser publicado: os nossos scripts, os
+documentos, os estudos e os relatórios. Ficou de fora tudo o que não pode
+sair: arquivos e trechos da biblioteca SAED32 (PDK), scripts confidenciais e
+de exemplo do curso, dados pessoais e o histórico de tentativas e erros.
+
+O repositório antigo foi renomeado para `cv32e40p-asic-flow-arquivo` e ficou
+só para consulta: **não rode nada dele**. Ele usava o corner lento errado
+(ss 0,75 V; o certo é 0,95 V, estudo E01), e os números dele não valem mais.
+
+**Para continuar, cada um precisa clonar o repositório novo** na sua conta do
+servidor. Se você já tem uma pasta `~/cv32e40p-asic-flow` do repositório
+antigo, renomeie antes, para não misturar:
+
+```
+mv ~/cv32e40p-asic-flow ~/cv32e40p-asic-flow-antigo
+```
+
+Depois siga "Antes de começar", mais abaixo. O token do GitHub precisa ter
+acesso ao repositório novo (sem isso, o `clone` dá erro 403). O
+`docs/estado-atual.md` diz sempre onde o projeto está.
+
+## Onde a dupla já chegou
+
+A Alanna rodou tudo deste guia em 17/11/2026, na rodada
+`pnr_hvt_20261117-170523` (registro em `docs/rodadas/`). Cada bloco abaixo tem
+um item **"Na rodada de 17/11"** com o que ela obteve. Quem reproduz deve
+chegar aos mesmos números: mesmo RTL, mesmos scripts, mesma biblioteca. Se um
+número não bater, pare e descubra por quê antes de seguir.
+
+Resultado da rodada de 17/11: síntese completa nos três corners e Formality
+**SUCCEEDED**. O registrador → registrador fecha nos três corners. Ainda
+violam os caminhos de entrada e saída no ss e no tt (estudo E04) e as regras
+elétricas (estudo E03). Esses dois pontos dependem de resposta do professor.
 
 ## Como rodar linha por linha
 
@@ -104,9 +161,26 @@ Biblioteca HVT, clock de 8 ns (125 MHz), três corners (ss 0,95 V 125 °C; tt
 Alternativa: em vez de colar comando a comando, o `scripts/fc/bloco.tcl` roda
 um bloco inteiro (`source scripts/fc/bloco.tcl` e depois `bloco 1.2`).
 
+## Use o tmux (a conexão cai)
+
+Na rodada de 17/11 a conexão SSH caiu duas vezes. Um `fc_shell` aberto direto
+no terminal morre junto com a conexão, ou fica perdido e preso à biblioteca.
+Dentro do `tmux`, ele continua rodando no servidor:
+
+```
+tmux new -s fc
+```
+
+- Sair sem fechar nada: `Ctrl+b`, solte, e aperte `d`.
+- Voltar depois de reconectar: `tmux attach -t fc`.
+- Ver as sessões abertas: `tmux ls`.
+
+Se mesmo assim o `fc_shell` fechar, veja "Se o fc_shell fechar no meio", no
+fim deste guia.
+
 ## Antes de começar (uma vez por conta)
 
-No terminal do servidor:
+No terminal do servidor (dentro do `tmux`):
 
 ```
 git clone --recurse-submodules https://github.com/alannasant0s/cv32e40p-asic-flow.git
@@ -150,8 +224,30 @@ Os comandos abaixo são colados no `fc_shell>`, na ordem.
 
 FIM = """## Formality: a netlist faz o mesmo que o RTL?
 
-Saia do `fc_shell` (`exit`) e, no terminal, troque `<rodada>` pela pasta
-anotada no bloco 1.1:
+Arquivo: `tool_data/fm/fm.tcl`.
+
+O Formality compara dois circuitos sem simular: a **referência** (o RTL do
+OpenHW) e a **implementação** (a netlist da síntese). Ele casa os pontos dos
+dois pelo nome (portas de saída e flip-flops) e prova, para cada par, que a
+lógica que chega nele é a mesma. O script roda de uma vez (não pede decisão
+no meio), mas leia antes o que ele faz:
+
+```
+set synopsys_auto_setup true      ;# lê o RTL do mesmo jeito que a síntese leu
+set_svf $SVF                      ;# usa o registro que a síntese gravou (bloco 1.2)
+read_db -tech ...                 ;# biblioteca de células HVT
+read_sverilog -r ...              ;# referência: o RTL
+read_verilog -i ... $NETLIST      ;# implementação: a netlist
+match                             ;# casa os pontos de comparação
+verify                            ;# prova que cada par é equivalente
+```
+
+O SVF é o "diário" da síntese. Cada mudança que a ferramenta fez (registrador
+constante removido, hierarquia desfeita, nome trocado) fica anotada, e o
+Formality usa essas anotações para casar os dois circuitos.
+
+Saia do `fc_shell` (`exit`). No terminal, dentro do `tmux`, troque `<rodada>`
+pela pasta anotada no bloco 1.1:
 
 ```
 fm_shell -x "set VT hvt; set NETLIST runs/<rodada>/outputs/cv32e40p_top_syn.v; set SVF runs/<rodada>/cv32e40p.svf" -file tool_data/fm/fm.tcl > fm_hvt.log 2>&1
@@ -159,8 +255,31 @@ tail -3 fm_hvt.log
 grep -A2 "Verification Results" runs/fm_hvt_*/rpt/status.rpt | tail -3
 ```
 
-**Deve aparecer:** `### Formality: SUCCEEDED` e `Verification SUCCEEDED`. Leia
-e anote o bloco "Auto Setup Summary" do `status.rpt` (critério 03.7).
+**Deve aparecer:** `Verification SUCCEEDED`. Leia e anote o bloco "Auto Setup
+Summary" do `status.rpt` (critério 03.7): são as premissas em que o resultado
+vale.
+
+**Na rodada de 17/11:** 61 segundos. `Verification SUCCEEDED`: 2243 pontos
+passaram (113 portas, 2129 flip-flops, 1 latch do clock gate), 0 falharam e 0
+foram abortados. SVF: 602 dicas aceitas e 0 rejeitadas, incluindo 270
+`reg_constant`, os mesmos 270 registradores constantes do 3.1. Avisos do RTL:
+33 FMR_ELAB-116 e 22 FMR_VLOG-063; por isso o relatório avisa que o resultado
+"pode discordar de um simulador". Um ponto do RTL ficou sem par:
+`aligner_ready_q_reg`, removido pela síntese (ainda a estudar).
+
+## Resumo: os números a que você deve chegar
+
+| Onde | Na rodada de 17/11 |
+|---|---|
+| NDM | 0 erros; 4 corners da HVT; `2/2 workspaces checked successfully` |
+| 1.5 | 379 portas; 25 módulos; nenhum latch |
+| 2.4, 2.5, 2.6 | PVT-032 nos três; `clk_i 8.00`; setup e hold nos três |
+| 2.8 | 313 TCK-001 `case constant`; só `scan_cg_en_i = 0` |
+| 3.2 | 51.644 µm²; 14.759 células; TIEL = 114 |
+| 3.4 setup (ss / tt / ff) | −1,287 / −0,130 / +0,762 ns |
+| 3.4 hold (ss / tt / ff) | +0,229 / +0,097 / −0,003 ns |
+| 3.4 regras elétricas | 1340 redes |
+| Formality | SUCCEEDED, 2243 pontos, 0 falhas |
 
 ## Depois da síntese
 
@@ -213,8 +332,38 @@ def cabecalho(caminho):
             t = linha.lstrip("#").strip()
             if "Autores:" in t or "polo UFCG" in t:
                 continue
-            linhas.append(t)
+            linhas.append(linha[1:].rstrip())
     return linhas
+
+
+def render_cabecalho(linhas):
+    """Parágrafos do cabeçalho; linhas recuadas (comandos, tabelas) viram quadro."""
+    md, par, quadro = [], [], []
+
+    def fecha():
+        if par:
+            md.extend([" ".join(par), ""])
+            par.clear()
+        if quadro:
+            ind = min(len(q) - len(q.lstrip()) for q in quadro)
+            md.extend(["```", *[q[ind:] for q in quadro], "```", ""])
+            quadro.clear()
+
+    for l in linhas:
+        if l.strip().startswith("tool_data/"):
+            continue
+        if not l.strip():
+            fecha()
+        elif l.startswith("   "):
+            if par:
+                fecha()
+            quadro.append(l)
+        else:
+            if quadro:
+                fecha()
+            par.append(l.strip())
+    fecha()
+    return md
 
 
 def chaves(s):
@@ -276,6 +425,9 @@ def render_bloco(bid, titulo, linhas):
         md.append("")
         md += [f"- {e}" for e in ESPERADO[bid]]
         md.append("")
+    if bid in REFERENCIA:
+        md.append(f"**Na rodada de 17/11:** {REFERENCIA[bid]}")
+        md.append("")
     md.append("Feito: ( )  Conferido: ( )")
     md.append("")
     return md
@@ -287,9 +439,7 @@ def main():
     for nome, titulo in SCRIPTS:
         caminho = RAIZ / "tool_data" / "fc" / f"{nome}.tcl"
         md += [f"## {titulo}", "", f"Arquivo: `tool_data/fc/{nome}.tcl`.", ""]
-        cab = [c for c in cabecalho(caminho) if c and not c.startswith("tool_data/")]
-        if cab:
-            md += ["> " + " ".join(cab), ""]
+        md += render_cabecalho(cabecalho(caminho))
         for bid, tit, linhas in blocos(caminho):
             vistos.add(bid)
             md += render_bloco(bid, tit, linhas)

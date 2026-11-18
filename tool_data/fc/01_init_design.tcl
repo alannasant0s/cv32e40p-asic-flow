@@ -2,14 +2,15 @@
 # Autores: Alanna Santos e Apolonio Neto. Projeto da dupla na residência CI Expert,
 # polo UFCG (trilha de Physical Design), 2026.
 #
-# COMO USAR: abra o Fusion Compiler com a GUI (X2Go), da raiz do repositório:
+# COMO USAR: no terminal do servidor (VS Code Remote-SSH), dentro do tmux,
+# da raiz do repositório:
 #     cd ~/cv32e40p-asic-flow
 #     source /Tools/synopsys-scripts/snps.sh
 #     scripts/gen_filelist.sh --synthesis
-#     fc_shell -gui
-# No console do fc_shell (embaixo da janela), cole UM BLOCO por vez, de um
-# "### BLOCO" até o próximo. Leia o comentário antes. Depois, faça o que diz
-# CONFERIR e tire print do que diz PRINT.
+#     fc_shell
+# (fc_shell -gui pelo X2Go, se quiser ver telas.) Cole UM COMANDO por vez,
+# lendo o comentário antes. Depois, faça o que diz CONFERIR e tire print do
+# que diz PRINT.
 
 ### BLOCO 1.1 — Variáveis ######################################################
 source tool_data/fc/00_tech_setup.tcl

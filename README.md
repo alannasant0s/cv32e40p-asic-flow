@@ -26,7 +26,7 @@ cv32e40p (Solderpad Hardware License).*
 |---|---|
 | Simulação do RTL (VCS) e lint | scripts prontos (`tool_data/vcs/`, `tool_data/lint/`) |
 | Biblioteca (NDM) e corners | scripts prontos; corners definidos pelo databook da biblioteca (estudo E01) |
-| **Síntese lógica** (scripts `01` a `03`) | **em andamento**: entrega prevista para o fim de novembro de 2026 |
+| **Síntese lógica** (scripts `01` a `03`) e Formality | **primeira rodada completa (17/11/2026)**: Formality SUCCEEDED; registrador → registrador fecha nos três corners; entradas/saídas e regras elétricas em estudo (E04, E03), com perguntas ao professor. Entrega prevista para o fim de novembro de 2026 |
 | Floorplan, alimentação, placement, árvore de clock, roteamento, acabamento (`04` a `09`) | scripts prontos; rodam depois da síntese aceita, com os estudos E09 e E10 antes |
 
 Os resultados entram aqui quando cada etapa passar nos critérios de aceite.

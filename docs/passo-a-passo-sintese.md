@@ -11,6 +11,44 @@ discordarem, vale o script; gere o guia de novo.
 Biblioteca HVT, clock de 8 ns (125 MHz), três corners (ss 0,95 V 125 °C; tt
 1,05 V 25 °C; ff 1,16 V −40 °C), netlist flat abaixo do `core_i`.
 
+## Primeiro: o repositório mudou
+
+Em 14/11/2026 a dupla criou um **repositório novo e limpo**:
+`https://github.com/alannasant0s/cv32e40p-asic-flow`. Ele vai ser público
+(portfólio), então só tem o que pode ser publicado: os nossos scripts, os
+documentos, os estudos e os relatórios. Ficou de fora tudo o que não pode
+sair: arquivos e trechos da biblioteca SAED32 (PDK), scripts confidenciais e
+de exemplo do curso, dados pessoais e o histórico de tentativas e erros.
+
+O repositório antigo foi renomeado para `cv32e40p-asic-flow-arquivo` e ficou
+só para consulta: **não rode nada dele**. Ele usava o corner lento errado
+(ss 0,75 V; o certo é 0,95 V, estudo E01), e os números dele não valem mais.
+
+**Para continuar, cada um precisa clonar o repositório novo** na sua conta do
+servidor. Se você já tem uma pasta `~/cv32e40p-asic-flow` do repositório
+antigo, renomeie antes, para não misturar:
+
+```
+mv ~/cv32e40p-asic-flow ~/cv32e40p-asic-flow-antigo
+```
+
+Depois siga "Antes de começar", mais abaixo. O token do GitHub precisa ter
+acesso ao repositório novo (sem isso, o `clone` dá erro 403). O
+`docs/estado-atual.md` diz sempre onde o projeto está.
+
+## Onde a dupla já chegou
+
+A Alanna rodou tudo deste guia em 17/11/2026, na rodada
+`pnr_hvt_20261117-170523` (registro em `docs/rodadas/`). Cada bloco abaixo tem
+um item **"Na rodada de 17/11"** com o que ela obteve. Quem reproduz deve
+chegar aos mesmos números: mesmo RTL, mesmos scripts, mesma biblioteca. Se um
+número não bater, pare e descubra por quê antes de seguir.
+
+Resultado da rodada de 17/11: síntese completa nos três corners e Formality
+**SUCCEEDED**. O registrador → registrador fecha nos três corners. Ainda
+violam os caminhos de entrada e saída no ss e no tt (estudo E04) e as regras
+elétricas (estudo E03). Esses dois pontos dependem de resposta do professor.
+
 ## Como rodar linha por linha
 
 1. Abra o script no editor (VS Code) de um lado e o terminal do `fc_shell` do
@@ -33,9 +71,26 @@ Biblioteca HVT, clock de 8 ns (125 MHz), três corners (ss 0,95 V 125 °C; tt
 Alternativa: em vez de colar comando a comando, o `scripts/fc/bloco.tcl` roda
 um bloco inteiro (`source scripts/fc/bloco.tcl` e depois `bloco 1.2`).
 
+## Use o tmux (a conexão cai)
+
+Na rodada de 17/11 a conexão SSH caiu duas vezes. Um `fc_shell` aberto direto
+no terminal morre junto com a conexão, ou fica perdido e preso à biblioteca.
+Dentro do `tmux`, ele continua rodando no servidor:
+
+```
+tmux new -s fc
+```
+
+- Sair sem fechar nada: `Ctrl+b`, solte, e aperte `d`.
+- Voltar depois de reconectar: `tmux attach -t fc`.
+- Ver as sessões abertas: `tmux ls`.
+
+Se mesmo assim o `fc_shell` fechar, veja "Se o fc_shell fechar no meio", no
+fim deste guia.
+
 ## Antes de começar (uma vez por conta)
 
-No terminal do servidor:
+No terminal do servidor (dentro do `tmux`):
 
 ```
 git clone --recurse-submodules https://github.com/alannasant0s/cv32e40p-asic-flow.git
@@ -80,7 +135,16 @@ Os comandos abaixo são colados no `fc_shell>`, na ordem.
 
 Arquivo: `tool_data/fc/01_init_design.tcl`.
 
-> COMO USAR: abra o Fusion Compiler com a GUI (X2Go), da raiz do repositório: cd ~/cv32e40p-asic-flow source /Tools/synopsys-scripts/snps.sh scripts/gen_filelist.sh --synthesis fc_shell -gui No console do fc_shell (embaixo da janela), cole UM BLOCO por vez, de um "### BLOCO" até o próximo. Leia o comentário antes. Depois, faça o que diz CONFERIR e tire print do que diz PRINT.
+COMO USAR: no terminal do servidor (VS Code Remote-SSH), dentro do tmux, da raiz do repositório:
+
+```
+cd ~/cv32e40p-asic-flow
+source /Tools/synopsys-scripts/snps.sh
+scripts/gen_filelist.sh --synthesis
+fc_shell
+```
+
+(fc_shell -gui pelo X2Go, se quiser ver telas.) Cole UM COMANDO por vez, lendo o comentário antes. Depois, faça o que diz CONFERIR e tire print do que diz PRINT.
 
 ### Bloco 1.1 — Variáveis
 
@@ -182,6 +246,8 @@ report_hierarchy -nosplit
 - `current_design`: `{cv32e40p_lib:cv32e40p_top_COREV_PULP0_..._NUM_MHPMCOUNTERS1.design}`.
 - `report_hierarchy`: o `cv32e40p_core_...` e, dentro dele, cs_registers, ex_stage (alu, alu_div, mult), id_stage (controller, decoder, register_file), if_stage (aligner, prefetch_buffer), load_store_unit e sleep_unit, com o `cv32e40p_clock_gate` usando a `CGLPPRX2_HVT`. As linhas `__wvGtech__` (lógica genérica) e `DW01_*`/`DW_*` (somadores, comparadores, multiplicadores prontos) são normais nesta fase.
 
+**Na rodada de 17/11:** 25 módulos; topo com 379 portas; só flip-flops, nenhum latch; avisos VER-318 e VER-61 (do RTL). Banco de registradores com 1024 flip-flops (32 × 32 bits).
+
 Feito: ( )  Conferido: ( )
 
 ### Bloco 1.6 — Netlist flat
@@ -201,6 +267,8 @@ report_app_options compile.flow.autoungroup
 **Deve aparecer:**
 
 - `compile.flow.autoungroup` com `true` na coluna do valor do usuário.
+
+**Na rodada de 17/11:** `compile.flow.autoungroup`: Value `true`, User-value `true`.
 
 Feito: ( )  Conferido: ( )
 
@@ -230,7 +298,25 @@ Feito: ( )  Conferido: ( )
 
 Arquivo: `tool_data/fc/02_scenarios.tcl`.
 
-> COMO USAR: na mesma sessão do fc_shell do 01, um bloco por vez. Ideia geral: modo     = o que o chip está fazendo (aqui só "func", funcionamento normal); corner   = condição de processo, tensão e temperatura; cenário  = modo + corner. O timing e a potência são analisados por cenário. Usamos três corners (decisão de corners em docs/decisions.md), todos do conjunto nominal de 1,05 V do databook da biblioteca (Tabela 1.6, p. 19; estudo E01): ss  0,95 V 125 °C  (lento:  -10 %)  -> pior caso de setup tt  1,05 V  25 °C  (típico: nominal) -> referência e potência ff  1,16 V -40 °C  (rápido: +10 %)  -> pior caso de hold Setup e hold são ANALISADOS e RELATADOS nos três (bloco 2.6): o professor pede os três corners em todos os relatórios. Armadilha: não usar o ss0p75 (0,75 V). Ele é do conjunto "middle voltage" e não se mistura com tt1p05/ff1p16. Por que importa: docs/estudos/E01.
+COMO USAR: na mesma sessão do fc_shell do 01, um bloco por vez.
+
+Ideia geral:
+
+```
+modo     = o que o chip está fazendo (aqui só "func", funcionamento normal);
+corner   = condição de processo, tensão e temperatura;
+cenário  = modo + corner. O timing e a potência são analisados por cenário.
+```
+
+Usamos três corners (decisão de corners em docs/decisions.md), todos do conjunto nominal de 1,05 V do databook da biblioteca (Tabela 1.6, p. 19; estudo E01):
+
+```
+ss  0,95 V 125 °C  (lento:  -10 %)  -> pior caso de setup
+tt  1,05 V  25 °C  (típico: nominal) -> referência e potência
+ff  1,16 V -40 °C  (rápido: +10 %)  -> pior caso de hold
+```
+
+Setup e hold são ANALISADOS e RELATADOS nos três (bloco 2.6): o professor pede os três corners em todos os relatórios. Armadilha: não usar o ss0p75 (0,75 V). Ele é do conjunto "middle voltage" e não se mistura com tt1p05/ff1p16. Por que importa: docs/estudos/E01.
 
 ### Bloco 2.1 — Limpar definições anteriores
 
@@ -363,6 +449,8 @@ report_pvt > $RPT_DIR/02_pvt.rpt
 - `Information: Corner ss: no PVT mismatches. (PVT-032)`, e o mesmo para `tt` e `ff`. **Se aparecer PVT-030, pare**: a biblioteca do corner está errada.
 - Avisos UIC-061 sobre o `set_timing_derate` (vale para célula e fio) são esperados.
 
+**Na rodada de 17/11:** PVT-032 (no PVT mismatches) em ss, tt e ff; 12 avisos UIC-061.
+
 Feito: ( )  Conferido: ( )
 
 ### Bloco 2.5 — Constraints (SDC)
@@ -389,6 +477,8 @@ report_clocks > $RPT_DIR/02_clocks.rpt
 **Deve aparecer:**
 
 - O `report_clocks` mostra `clk_i  8.00  {0 4}`: período de 8 ns, borda de subida em 0 e de descida em 4.
+
+**Na rodada de 17/11:** `clk_i 8.00 {0 4}`; dois avisos UIC-034 (clock redefinido ao ler o SDC nos três cenários).
 
 Feito: ( )  Conferido: ( )
 
@@ -421,6 +511,8 @@ report_scenarios > $RPT_DIR/02_scenarios.rpt
 **Deve aparecer:**
 
 - O `report_scenarios` mostra `func_ss`, `func_tt` e `func_ff` com **Setup `true` e Hold `true`**. A potência fica ligada só no `func_tt`.
+
+**Na rodada de 17/11:** Setup e Hold `true` em `func_ss`, `func_tt` e `func_ff`; potência só no `func_tt`.
 
 Feito: ( )  Conferido: ( )
 
@@ -474,6 +566,8 @@ write_sdc -output $OUT_DIR/02_constraints_lidas.sdc
 - O `report_case_analysis` mostra só o `scan_cg_en_i = 0`; o `report_exceptions` vem vazio (nenhum false path nem multicycle).
 - O `write_sdc` avisa `Multiply cell derates are skipped!` e `Multiply net derates are skipped!`: é um tipo de margem que não usamos; as margens de ±5 % aparecem no SDC gravado (`set_timing_derate`).
 
+**Na rodada de 17/11:** 313 avisos TCK-001, todos `case constant`; 0 erros. `report_case_analysis`: só `scan_cg_en_i = 0`.
+
 Feito: ( )  Conferido: ( )
 
 ### Bloco 2.9 — Salvar
@@ -500,7 +594,36 @@ Feito: ( )  Conferido: ( )
 
 Arquivo: `tool_data/fc/03_synth.tcl`.
 
-> COMO USAR: na mesma sessão do fc_shell do 02, um bloco por vez. SE O FC_SHELL FECHOU (queda de conexão, servidor reiniciou): abra de novo e retome do último bloco salvo, trocando <pasta> pela pasta da rodada: set RUN_DIR [pwd]/runs/<pasta> source tool_data/fc/00_tech_setup.tcl open_lib $RUN_DIR/cv32e40p_lib open_block cv32e40p_top_scenarios set_svf -append $RUN_DIR/cv32e40p.svf report_clocks (o report_clocks tem que mostrar o período de 8). Corners, cenários, SDC e a opção de hierarquia ficam salvos no bloco. O que rodou depois do último save_block se perde e precisa ser refeito. Se o set_svf -append disser "SVF file is corrupt" (a sessão antiga caiu no meio da escrita), NÃO comece um SVF novo: o Formality precisa do registro inteiro, desde o 01. Refaça a rodada a partir do 01 numa pasta nova. Para fechar uma sessão perdida: num terminal Linux, pgrep -u $USER -a fc_shell e kill <número>. Fechar o terminal no VS Code nem sempre fecha o fc_shell. O compile_fusion sozinho, sem opções, vai até o placement. Aqui ele roda em pedaços e para antes do placement, que vem depois do floorplan e da rede de alimentação (04 em diante). Se rodar inteiro sem floorplan, ele inventa um floorplan automático (aviso LGL-397). Etapas do compile_fusion, na ordem (conferido com "man compile_fusion" neste servidor): initial_map    traduz em células, buscando área mínima      <- 03 (aqui) logic_opto     otimiza a lógica para o timing               <- 03 (aqui) initial_place  placement grosseiro                          <- depois do floorplan e do PG initial_drc    árvores de buffer em redes de fanout alto initial_opto   otimização física final_place    placement final e legalização final_opto     otimização final de timing e potência Os cinco últimos rodam depois, com "compile_fusion -from initial_place".
+COMO USAR: na mesma sessão do fc_shell do 02, um bloco por vez.
+
+SE O FC_SHELL FECHOU (queda de conexão, servidor reiniciou): abra de novo e retome do último bloco salvo, trocando <pasta> pela pasta da rodada:
+
+```
+set RUN_DIR [pwd]/runs/<pasta>
+source tool_data/fc/00_tech_setup.tcl
+open_lib $RUN_DIR/cv32e40p_lib
+open_block cv32e40p_top_scenarios
+set_svf -append $RUN_DIR/cv32e40p.svf
+report_clocks
+```
+
+(o report_clocks tem que mostrar o período de 8). Corners, cenários, SDC e a opção de hierarquia ficam salvos no bloco. O que rodou depois do último save_block se perde e precisa ser refeito. Se o set_svf -append disser "SVF file is corrupt" (a sessão antiga caiu no meio da escrita), NÃO comece um SVF novo: o Formality precisa do registro inteiro, desde o 01. Refaça a rodada a partir do 01 numa pasta nova. Para fechar uma sessão perdida: num terminal Linux, pgrep -u $USER -a fc_shell e kill <número>. Fechar o terminal no VS Code nem sempre fecha o fc_shell.
+
+O compile_fusion sozinho, sem opções, vai até o placement. Aqui ele roda em pedaços e para antes do placement, que vem depois do floorplan e da rede de alimentação (04 em diante). Se rodar inteiro sem floorplan, ele inventa um floorplan automático (aviso LGL-397).
+
+Etapas do compile_fusion, na ordem (conferido com "man compile_fusion" neste servidor):
+
+```
+initial_map    traduz em células, buscando área mínima      <- 03 (aqui)
+logic_opto     otimiza a lógica para o timing               <- 03 (aqui)
+initial_place  placement grosseiro                          <- depois do floorplan e do PG
+initial_drc    árvores de buffer em redes de fanout alto
+initial_opto   otimização física
+final_place    placement final e legalização
+final_opto     otimização final de timing e potência
+```
+
+Os cinco últimos rodam depois, com "compile_fusion -from initial_place".
 
 ### Bloco 3.0 — Liberar as células de tie
 
@@ -524,6 +647,8 @@ Nenhuma célula é proibida (dont_use) na síntese: proibir uma célula vale par
 
 - Sem erro: as células de tie (TIEH e TIEL) são liberadas.
 
+**Na rodada de 17/11:** `1`, com aviso ATTR-12 (a mudança fica no bloco, não na biblioteca).
+
 Feito: ( )  Conferido: ( )
 
 ### Bloco 3.0b — Sem clock gating automático
@@ -545,6 +670,8 @@ Depois da síntese (bloco 3.4), o report_clock_gating mostra quantos clock gates
 **Deve aparecer:**
 
 - O `report_clock_gating_objects` mostra o `core_i` como **Exclude**.
+
+**Na rodada de 17/11:** `Exclude | Both | core_i`.
 
 Feito: ( )  Conferido: ( )
 
@@ -580,6 +707,8 @@ report_timing -scenarios [all_scenarios] -report_by scenario > $RPT_DIR/03a_timi
 
 - Leva alguns minutos. O `report_area` mostra o número de células e a área logo depois do mapeamento.
 - O `report_timing` mostra um bloco por cenário (`func_ss`, `func_tt`, `func_ff`).
+
+**Na rodada de 17/11:** Cerca de 2 minutos. 10.927 células, 44.541 µm², 2.131 sequenciais, 1 clock gate (o do RTL). Pior caminho, antes de otimizar: ss −6,11, tt −4,30, ff −0,48 ns.
 
 Feito: ( )  Conferido: ( )
 
@@ -621,6 +750,8 @@ report_timing -scenarios [all_scenarios] -report_by scenario
 - Leva alguns minutos. `Tie cells: TIEL=<n> TIEH=<n>`: as saídas constantes passam a ter célula de tie.
 - O `report_qor` e o `report_timing` mostram os três cenários.
 
+**Na rodada de 17/11:** Cerca de 4 min 40 s. `Tie cells: TIEL=114 TIEH=0`. 51.644 µm², 14.759 células, 2.130 sequenciais.
+
 Feito: ( )  Conferido: ( )
 
 ### Bloco 3.3 — Netlist flat depois da síntese
@@ -640,6 +771,8 @@ report_area > $RPT_DIR/03_area.rpt
 **Deve aparecer:**
 
 - `report_area` sem erro. No `report_qor` do 3.4: `Hierarchical Cell Count: 1` (o `core_i`; tudo abaixo dele foi desfeito).
+
+**Na rodada de 17/11:** `Hierarchical Cell Count: 1`.
 
 Feito: ( )  Conferido: ( )
 
@@ -703,6 +836,8 @@ report_constraint -all_violators -scenarios [all_scenarios]      > $RPT_DIR/03_v
 - O `03_clock_gating.rpt` mostra **1** clock gate. O relatório o chama de "Tool-Inserted", mas ele é o do RTL: confira com `grep CGLPPRX2_HVT outputs/cv32e40p_top_syn.v` (aparece só o `sleep_unit_i/core_clock_gate_i/u_icg`).
 - Avisos TIM-010 no relatório entrada→saída, em bits que o RTL não usa (`boot_addr_i[1:0]`, bits reservados de `irq_i`...), são esperados.
 
+**Na rodada de 17/11:** `report_qor -summary`: setup ff +0,762, ss −1,287 (1011 caminhos), tt −0,130 (19); hold ff −0,003 (1), ss +0,229, tt +0,097; 1340 redes com violação elétrica. Folga registrador → registrador: ss +0,27, tt +2,48, ff +5,77 (fecha nos três). Potência tt ≈ 51 mW.
+
 Feito: ( )  Conferido: ( )
 
 ### Bloco 3.5 — Salvar
@@ -733,12 +868,36 @@ puts "### 03_synth pronto. Próximo: floorplan (tool_data/fc/04_floorplan.tcl)"
 
 - `### 03_synth pronto`. Em `outputs/`: `cv32e40p_top_syn.v` (netlist) e `cv32e40p_top_syn.sdc`.
 
+**Na rodada de 17/11:** `cv32e40p_top_syn.v` com 2 módulos; avisos VW-007 (nomes de fios trocados pelo da porta).
+
 Feito: ( )  Conferido: ( )
 
 ## Formality: a netlist faz o mesmo que o RTL?
 
-Saia do `fc_shell` (`exit`) e, no terminal, troque `<rodada>` pela pasta
-anotada no bloco 1.1:
+Arquivo: `tool_data/fm/fm.tcl`.
+
+O Formality compara dois circuitos sem simular: a **referência** (o RTL do
+OpenHW) e a **implementação** (a netlist da síntese). Ele casa os pontos dos
+dois pelo nome (portas de saída e flip-flops) e prova, para cada par, que a
+lógica que chega nele é a mesma. O script roda de uma vez (não pede decisão
+no meio), mas leia antes o que ele faz:
+
+```
+set synopsys_auto_setup true      ;# lê o RTL do mesmo jeito que a síntese leu
+set_svf $SVF                      ;# usa o registro que a síntese gravou (bloco 1.2)
+read_db -tech ...                 ;# biblioteca de células HVT
+read_sverilog -r ...              ;# referência: o RTL
+read_verilog -i ... $NETLIST      ;# implementação: a netlist
+match                             ;# casa os pontos de comparação
+verify                            ;# prova que cada par é equivalente
+```
+
+O SVF é o "diário" da síntese. Cada mudança que a ferramenta fez (registrador
+constante removido, hierarquia desfeita, nome trocado) fica anotada, e o
+Formality usa essas anotações para casar os dois circuitos.
+
+Saia do `fc_shell` (`exit`). No terminal, dentro do `tmux`, troque `<rodada>`
+pela pasta anotada no bloco 1.1:
 
 ```
 fm_shell -x "set VT hvt; set NETLIST runs/<rodada>/outputs/cv32e40p_top_syn.v; set SVF runs/<rodada>/cv32e40p.svf" -file tool_data/fm/fm.tcl > fm_hvt.log 2>&1
@@ -746,8 +905,31 @@ tail -3 fm_hvt.log
 grep -A2 "Verification Results" runs/fm_hvt_*/rpt/status.rpt | tail -3
 ```
 
-**Deve aparecer:** `### Formality: SUCCEEDED` e `Verification SUCCEEDED`. Leia
-e anote o bloco "Auto Setup Summary" do `status.rpt` (critério 03.7).
+**Deve aparecer:** `Verification SUCCEEDED`. Leia e anote o bloco "Auto Setup
+Summary" do `status.rpt` (critério 03.7): são as premissas em que o resultado
+vale.
+
+**Na rodada de 17/11:** 61 segundos. `Verification SUCCEEDED`: 2243 pontos
+passaram (113 portas, 2129 flip-flops, 1 latch do clock gate), 0 falharam e 0
+foram abortados. SVF: 602 dicas aceitas e 0 rejeitadas, incluindo 270
+`reg_constant`, os mesmos 270 registradores constantes do 3.1. Avisos do RTL:
+33 FMR_ELAB-116 e 22 FMR_VLOG-063; por isso o relatório avisa que o resultado
+"pode discordar de um simulador". Um ponto do RTL ficou sem par:
+`aligner_ready_q_reg`, removido pela síntese (ainda a estudar).
+
+## Resumo: os números a que você deve chegar
+
+| Onde | Na rodada de 17/11 |
+|---|---|
+| NDM | 0 erros; 4 corners da HVT; `2/2 workspaces checked successfully` |
+| 1.5 | 379 portas; 25 módulos; nenhum latch |
+| 2.4, 2.5, 2.6 | PVT-032 nos três; `clk_i 8.00`; setup e hold nos três |
+| 2.8 | 313 TCK-001 `case constant`; só `scan_cg_en_i = 0` |
+| 3.2 | 51.644 µm²; 14.759 células; TIEL = 114 |
+| 3.4 setup (ss / tt / ff) | −1,287 / −0,130 / +0,762 ns |
+| 3.4 hold (ss / tt / ff) | +0,229 / +0,097 / −0,003 ns |
+| 3.4 regras elétricas | 1340 redes |
+| Formality | SUCCEEDED, 2243 pontos, 0 falhas |
 
 ## Depois da síntese
 

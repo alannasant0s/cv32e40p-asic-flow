@@ -16,6 +16,18 @@ CV32E40P (biblioteca HVT, 8 ns, flat abaixo do `core_i`, três corners)
 revisada e explicada, **até o fim de novembro**. O fluxo físico só começa
 depois.
 
+## Situação (17/11/2026)
+
+| Etapa | Situação |
+|---|---|
+| 0 — ambiente | Alanna: feita. Apolônio: falta clonar o repositório novo (passo a passo, seção "Primeiro: o repositório mudou") |
+| 1 — entender o processador | em andamento (prova da etapa 1, `docs/estudos/etapa1-prova.md`) |
+| 2 — simulação e lint | a fazer |
+| 3 — NDM e corners | feita pela Alanna (0 erros, quatro corners da HVT) |
+| 4 — síntese bloco a bloco | primeira rodada feita pela Alanna (`docs/rodadas/pnr_hvt_20261117-170523.md`): critérios 02 cumpridos; 03.5, 03.7 (Formality) e 03.9 cumpridos; 03.1 e 03.3 não passam ainda. Falta o Apolônio reproduzir e conferir |
+| 5 — estudos e perguntas | próximo passo: E04 (entradas e saídas), E03 (regras elétricas), E08 (margens), TIEH/TIEL, potência só no tt |
+| 6 — entrega | fim de novembro |
+
 ## Regras do plano
 
 - Uma etapa por vez. Só se passa para a próxima quando os critérios da atual
