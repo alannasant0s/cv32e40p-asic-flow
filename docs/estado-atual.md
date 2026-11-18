@@ -18,7 +18,9 @@ cada sessão, no mesmo commit das mudanças.
   ss −1,287, tt −0,130 ns; registrador → registrador fecha nos três corners;
   violam caminhos de entrada e saída (E04). Hold ff −0,003 ns (clock ideal).
   1340 redes com violação elétrica (E03). Critérios 02.1 a 02.5 cumpridos;
-  03.1 e 03.3 ainda não. Falta o Formality.
+  03.1 e 03.3 ainda não. **Formality: Verification SUCCEEDED** (2243 pontos,
+  0 falhas; critério 03.7 cumprido). Um registrador do RTL sem par na netlist
+  (`aligner_ready_q`, removido pela síntese), a estudar.
 - **Etapa 0 concluída pela Alanna (2026-11-17):** clone na conta dela, submódulo
   em `cv32e40p_v1.8.3`, hook ativo, filelist de síntese gerada (33 arquivos,
   clock gate da SAED32). Falta a etapa 0 do Apolônio (acesso ao repositório e
