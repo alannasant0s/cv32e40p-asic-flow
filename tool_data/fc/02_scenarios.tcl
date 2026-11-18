@@ -94,13 +94,9 @@ report_clocks > $RPT_DIR/02_clocks.rpt
 ### BLOCO 2.6 — O que cada cenário analisa #####################################
 # Setup E hold ligados nos TRÊS cenários. Assim o report_qor mostra cada
 # corner numa linha própria, para setup e para hold.
-# Atenção ao ler o report_qor -summary: a linha "Design" NÃO é um corner.
-# É o resumo de todos os cenários: o WNS dela é o pior entre eles; TNS e NVE
-# dela não são a soma (medido; o man não define essa linha; estudo E02).
 # Com hold ligado, o min_cap também passa a ser checado no ss e no tt
 # (man set_scenario_status: -min_capacitance precisa de -hold).
-# Se o ff tivesse só hold e o ss/tt só setup, o ff não apareceria no setup
-# e a linha "Design" pareceria uma cópia do ss.
+# Se o ff tivesse só hold e o ss/tt só setup, o ff não apareceria no setup.
 # Potência: otimizada só no tt (o 03, bloco 3.4, relata nos três). É uma ESTIMATIVA: sem atividade de simulação (SAIF),
 # a ferramenta supõe uma taxa de chaveamento padrão. O pior vazamento seria
 # no ff a 125 °C, que não é analisado (ver estudo E08).

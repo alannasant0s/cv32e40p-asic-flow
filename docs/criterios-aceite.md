@@ -37,7 +37,7 @@ sai do estudo e da resposta do professor. Não inventar um limite antes disso.
 
 | # | Critério | Como conferir |
 |---|---|---|
-| 03.1 | Setup nos três corners | `report_qor -summary`: WNS de setup > −0,01 ns nas linhas `func_ss`, `func_tt`, `func_ff` (a linha `Design` é o resumo, estudo E02). Anotar também a folga registrador → registrador: a síntese ainda não tem fios reais, então folga zero aqui tende a virar violação no placement |
+| 03.1 | Setup nos três corners | `report_qor -summary`: WNS de setup > −0,01 ns nas linhas `func_ss`, `func_tt`, `func_ff`. Anotar também a folga registrador → registrador: a síntese ainda não tem fios reais, então folga zero aqui tende a virar violação no placement |
 | 03.2 | Hold relatado nos três corners e explicado | parte de hold do `report_qor -summary` nos três corners: números relatados e pior caminho lido e explicado (estudo E07), sem limite próprio até a resposta do professor. O hold tem que fechar no 07 (critério 07.1) |
 | 03.3 | Violações elétricas contadas e explicadas | contagem por corner e por **rede única** (estudo E03). A síntese pode terminar com violações se o estudo E03 e o professor confirmarem que elas são corrigidas no 06. **Zero é exigido a partir do 06** |
 | 03.4 | Caminhos entrada → saída | `rpt/03_timing_in2out.rpt` (um bloco por cenário): nenhum violando, ou explicado no estudo E04. Avisos TIM-010 em bits que o RTL não usa são esperados |

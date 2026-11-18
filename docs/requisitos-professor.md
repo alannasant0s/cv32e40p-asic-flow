@@ -46,8 +46,7 @@ Sobre o R15: leitura nossa, nada de otimizar além do necessário. O que
 A entrega da síntese lógica precisa ter:
 
 1. O título certo (R9).
-2. Setup e hold dos três corners, cada um na sua linha, com a explicação da
-   linha "Design" do `report_qor` (R2, estudo E02).
+2. Setup e hold dos três corners, cada um na sua linha (R2).
 3. WNS > −0,01 ns em setup nos três corners (R10). Leitura nossa: se algum
    caminho não fechar, o motivo e a proposta (estudo E04 para entradas e
    saídas).

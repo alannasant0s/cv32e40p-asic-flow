@@ -74,7 +74,6 @@ Como procurar erros num log: `grep -n "^Error" <arquivo.log>`. No `fc_shell`,
 | `report_constraint` mostra `max_delay/setup 0.00 (MET)` | sem `-scenarios`, ele mostra só o cenário atual | use `report_constraint -scenarios [all_scenarios]` |
 | `CMD-001` "Cannot specify '-summary' with '-scenarios'" | o `report_qor -summary` não aceita `-scenarios` | use só `report_qor -summary` (ele já mostra os três corners) |
 | `UIC-058` "Scenario ... is not configured for setup/hold analysis: skipping" | o cenário não analisa aquilo | os três cenários analisam setup e hold (bloco 2.6); se aparecer, confira o `02_scenarios.tcl` |
-| A linha "Design" do `report_qor -summary` repete os números de um corner | ela é o resumo do projeto (pior caso), não um corner | estudo E02 |
 | `POW-046` / `POW-069` no `report_power` | estimativa de atividade sem simulação | normais |
 | Slack muito negativo no bloco 3.1 | o 3.1 só traduz o RTL em células, sem otimizar | normal antes da otimização; compare com o 3.2 |
 | Violações de regra elétrica (max_transition, max_capacitance) no fim da síntese | a síntese para antes das etapas físicas | por que e onde se corrigem: estudo E03 |

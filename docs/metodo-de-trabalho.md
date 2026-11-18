@@ -92,8 +92,7 @@ Antes de enviar qualquer relatório ou slide:
 1. Conferir os números com `docs/criterios-aceite.md` (setup e hold nos três
    corners, violações elétricas, etc.).
 2. Saber explicar **cada linha** do relatório mostrado. Se alguma linha não
-   for clara (como a linha "Design" do `report_qor`, estudo E02), ler o
-   `man` antes.
+   for clara, ler o `man` antes.
 3. **Conferência cruzada:** a Alanna confere os números do Apolonio e o
    Apolonio confere os da Alanna. Cada um assina na lista de verificação do
    envio (`docs/criterios-aceite.md`, seção "Antes de enviar").

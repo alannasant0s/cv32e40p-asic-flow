@@ -62,7 +62,7 @@ ESPERADO = {
     "3.2": ["Leva alguns minutos. `Tie cells: TIEL=<n> TIEH=<n>`: as saídas constantes passam a ter célula de tie.",
             "O `report_qor` e o `report_timing` mostram os três cenários."],
     "3.3": ["`report_area` sem erro. No `report_qor` do 3.4: `Hierarchical Cell Count: 1` (o `core_i`; tudo abaixo dele foi desfeito)."],
-    "3.4": ["O `report_qor -summary` mostra **uma linha por cenário** em setup e em hold, mais a linha `Design` (o resumo, não um corner; estudo E02), com 3 casas decimais.",
+    "3.4": ["O `report_qor -summary` mostra **uma linha por cenário** (`func_ss`, `func_tt`, `func_ff`) em setup e em hold, com 3 casas decimais.",
             "Os arquivos `03_timing_setup_{ss,tt,ff}.rpt`, `03_timing_hold_{ss,tt,ff}.rpt`, `03_violacoes_eletricas.rpt`, `03_timing_in2out.rpt`, `03_power_ss.rpt`, `03_power_tt.rpt`, `03_power_ff.rpt` e `03_clock_gating.rpt` aparecem em `rpt/`.",
             "O `03_clock_gating.rpt` mostra **1** clock gate: o do RTL (`sleep_unit_i/core_clock_gate_i/u_icg`; confira na netlist depois do 3.5).",
             "Avisos TIM-010 no relatório entrada→saída, em bits que o RTL não usa (`boot_addr_i[1:0]`, bits reservados de `irq_i`...), são esperados."],

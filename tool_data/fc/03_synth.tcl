@@ -109,10 +109,8 @@ report_area > $RPT_DIR/03_area.rpt
 # Relatórios separados por corner, para setup, hold e violações elétricas.
 # Antes de mostrar qualquer número ao professor: confira cada um com o
 # docs/criterios-aceite.md e saiba explicar cada linha (docs/estudos/E02).
-# PRINT: o resumo. Uma linha por cenário em setup e em hold. A linha "Design"
-# é o resumo de todos os cenários, não um corner: o WNS dela é o pior entre
-# os cenários; TNS e NVE dela não são a soma (medido; o man não define essa
-# linha; estudo E02).
+# PRINT: o resumo. Uma linha por cenário (func_ss, func_tt, func_ff) em setup
+# e em hold.
 # -significant_digits 3: com 2 casas (padrão), -0,009 aparece como -0,01, e o
 # critério (WNS > -0,01 ns) não dá para ler.
 report_qor -summary -significant_digits 3
