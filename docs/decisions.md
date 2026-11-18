@@ -86,7 +86,7 @@ mesmo SDC e o mesmo período, para comparar as três famílias.
 
 `CLK_PERIOD = 8.0` em `tool_data/fc/00_tech_setup.tcl`. O SDC não tem valor
 padrão: sem o `00_tech_setup.tcl`, ele para com erro. Pela documentação da
-biblioteca (frequência de referência de 300 MHz), 8 ns é um clock folgado.
+biblioteca (frequência de referência da Tabela 1.4), 8 ns é um clock folgado.
 
 ---
 
