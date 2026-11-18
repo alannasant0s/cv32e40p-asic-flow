@@ -24,7 +24,7 @@ depois.
 | 1 — entender o processador | em andamento (prova da etapa 1, `docs/estudos/etapa1-prova.md`) |
 | 2 — simulação e lint | a fazer |
 | 3 — NDM e corners | feita pela Alanna (0 erros, quatro corners da HVT) |
-| 4 — síntese bloco a bloco | primeira rodada feita pela Alanna (`docs/rodadas/pnr_hvt_20261117-170523.md`): critérios 02 cumpridos; 03.9 cumprido; 03.5, 03.6 e 03.7 com conferências pendentes (registro da rodada); 03.1 e 03.3 não passam ainda. Falta o Apolônio reproduzir e conferir |
+| 4 — síntese bloco a bloco | primeira rodada feita pela Alanna (`docs/rodadas/pnr_hvt_20261117-170523.md`): critérios 02 cumpridos; 03.9 cumprido; 03.5, 03.6 e 03.7 com conferências pendentes (registro da rodada); 03.3 relatado e explicado (zero no 06); 03.1 não passa ainda. Falta o Apolônio reproduzir e conferir |
 | 5 — estudos e perguntas | próximo passo: E04 (entradas e saídas), E03 (regras elétricas), E08 (margens), TIEH/TIEL; potência nos três corners já no `03` |
 | 6 — entrega | fim de novembro |
 

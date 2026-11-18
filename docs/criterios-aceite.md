@@ -39,7 +39,7 @@ sai do estudo e da resposta do professor. Não inventar um limite antes disso.
 |---|---|---|
 | 03.1 | Setup nos três corners | `report_qor -summary`: WNS de setup > −0,01 ns nas linhas `func_ss`, `func_tt`, `func_ff`. Anotar também a folga registrador → registrador: a síntese ainda não tem fios reais, então folga zero aqui tende a virar violação no placement |
 | 03.2 | Hold relatado nos três corners e explicado | parte de hold do `report_qor -summary` nos três corners: números relatados e pior caminho lido e explicado (estudo E07), sem limite próprio até a resposta do professor. O hold tem que fechar no 07 (critério 07.1) |
-| 03.3 | Violações elétricas contadas e explicadas | contagem por corner e por **rede única** (estudo E03). A síntese pode terminar com violações se o estudo E03 e o professor confirmarem que elas são corrigidas no 06. **Zero é exigido a partir do 06** |
+| 03.3 | Violações elétricas relatadas e explicadas | contagem por corner e por **rede única**, com a causa (estudo E03). A síntese para no `logic_opto`, antes do placement; a correção automática é do `initial_drc`, no 06. **Zero é exigido a partir do 06 (critério 06.4)**, sem correção à mão (R11). Proposta levada ao professor |
 | 03.4 | Caminhos entrada → saída | `rpt/03_timing_in2out.rpt` (um bloco por cenário): nenhum violando, ou explicado no estudo E04. Avisos TIM-010 em bits que o RTL não usa são esperados |
 | 03.5 | Netlist flat abaixo do core | `report_qor`: "Hierarchical Cell Count: 1" (é o `core_i`, cv32e40p_core; tudo abaixo dele foi desfeito) e `grep -c '^module' runs/<pasta>/outputs/*_syn.v` = 2 (depois do bloco 3.5). Ao relatar, dizer "flat abaixo do core_i" |
 | 03.6 | Nenhuma célula proibida por nós | o `03_synth.tcl` não tem `set_dont_use`; uma célula de exemplo, como a `OR2X1_HVT`, não está marcada: `get_attribute [get_lib_cells */OR2X1_HVT] dont_use` dá `false` (uma resposta por corner da biblioteca) |
@@ -55,7 +55,7 @@ sai do estudo e da resposta do professor. Não inventar um limite antes disso.
 | 02.6 | derate ±5 % e incerteza 0,30 / 0,10 ns em uso; registrar no estudo E08 |
 | 03.1 | não passa: ss −1,287 ns e tt −0,130 ns (entradas e saídas; registrador → registrador fecha nos três). Estudo E04 |
 | 03.2 | relatado: ff −0,003 ns (1 caminho: `alu_div_i/Cnt_DP_reg[0]` ligado nele mesmo; o dado chega em 0,08 ns e o exigido é 0,10 de incerteza − 0,02 de hold da biblioteca = 0,08), ss +0,229, tt +0,097. Explicar no E07 |
-| 03.3 | não passa: 1340 redes únicas. Estudo E03 e pergunta ao professor |
+| 03.3 | relatado e explicado: 1340 redes únicas no ss, todas de lógica comum (nenhuma de clock ou reset), ligadas em células de força pequena (limite de 8, 16 ou 32 fF). Zero cobrado no 06.4; proposta ao professor |
 | 03.4 | entrada → saída: ss −0,14 ns (6 caminhos). Estudo E04 |
 | 03.5 | cumprido: `Hierarchical Cell Count: 1` e `grep -c '^module'` = 2 (18/11) |
 | 03.6 | cumprido: `dont_use` da `OR2X1_HVT` = `false` (18/11) |
@@ -86,7 +86,7 @@ sai do estudo e da resposta do professor. Não inventar um limite antes disso.
 | 06.1 | Todas as células encaixadas | `check_legality`: 0 violações |
 | 06.2 | Alimentação ligada | `check_pg_connectivity`: 0 células e fios soltos |
 | 06.3 | Setup nos três corners | WNS > −0,01 ns (`report_qor -summary`) |
-| 06.4 | Violações elétricas zero | `rpt/06_violacoes_eletricas.rpt` |
+| 06.4 | Violações elétricas zero nos três corners, corrigidas pela ferramenta | `rpt/06_violacoes_eletricas.rpt` |
 | 06.5 | Congestão aceitável | `report_congestion`: limite de transbordo definido antes desta etapa, com o professor |
 
 ## Etapa 07 — árvore de clock (CTS)

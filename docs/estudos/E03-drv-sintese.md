@@ -80,6 +80,14 @@ ff 55 / 1202, ss 560 / 1340, tt 308 / 1288. Contando cada rede uma vez, são
 aparecem em mais corners e tipos: `core_i/useincr_addr_ex`, `core_i/N30553`,
 `core_i/N29574` (falta medir o fanout delas, passo 4).
 
+Leitura de 18/11 (`rpt/03_violacoes_eletricas.rpt`, ss): os limites
+estourados são de células de força pequena (727 redes com limite de 8 fF,
+396 de 16 fF e 217 de 32 fF). Quem dirige a rede é quase sempre o pino `Y`
+de uma porta lógica (827) ou o `Q` de um flip-flop (468). A pior é
+`core_i/phfnn_32768`, com 111,61 fF para um limite de 32 fF. Na transição,
+as piores são `mult_operand_a_ex[*]` (0,60 ns para 0,21 ns). Nenhuma rede
+de clock ou reset na lista.
+
 ## Resultado anotado
 
 | Etapa | Quem rodou | Transição ss / tt / ff | Capacitância ss / tt / ff | Redes únicas | Observação |
@@ -94,4 +102,7 @@ aparecem em mais corners e tipos: `core_i/useincr_addr_ex`, `core_i/N30553`,
 
 ## Decisão
 
-Depende da resposta do professor. Não mudar o `03_synth.tcl` antes disso.
+Proposta da dupla (18/11), levada ao professor: a síntese lógica termina no
+`logic_opto` com as violações relatadas e explicadas (critério 03.3), e o
+zero é exigido no 06 (critério 06.4), corrigido pela ferramenta. Não mudar
+o `03_synth.tcl` antes da resposta dele.

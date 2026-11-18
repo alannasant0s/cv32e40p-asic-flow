@@ -14,14 +14,14 @@ cada sessão, no mesmo commit das mudanças.
   síntese `01` a `03`, físico `04` a `09`, Formality), o método de trabalho, os
   critérios de aceite, as decisões vigentes e os estudos E01 a E10.
 - **Primeira rodada da síntese executada pela Alanna (2026-11-17), ainda
-  não aceita** (03.1 e 03.3 não passam; não é a entrega), rodada
+  não aceita** (03.1 não passa; não é a entrega), rodada
   `pnr_hvt_20261117-170523` (registro em `docs/rodadas/`). Setup: ff +0,762,
   ss −1,287, tt −0,130 ns; registrador → registrador fecha nos três corners;
-  violam caminhos de entrada e saída (E04). Hold ff −0,003 ns (clock ideal).
-  1340 redes com violação elétrica (E03). Critérios 02.1 a 02.5 cumpridos;
-  03.1 e 03.3 ainda não. **Formality: Verification SUCCEEDED** (2243 pontos,
-  0 falhas; critério 03.7 cumprido). Um registrador do RTL sem par na netlist
-  (`aligner_ready_q`, removido pela síntese), a estudar.
+  violam caminhos de entrada e saída (E04). Hold ff −0,003 ns (incerteza de hold, E07).
+  1340 redes com violação elétrica, relatadas e explicadas (E03; zero
+  cobrado no 06). Critérios 02.1 a 02.5 cumpridos; 03.1 ainda não. **Formality: Verification SUCCEEDED** (2243 pontos,
+  0 falhas; critério 03.7 cumprido). O registrador do RTL sem par na netlist
+  (`aligner_ready_q`) não tinha carga e foi removido pela síntese.
 - **Etapa 0 concluída pela Alanna (2026-11-17):** clone na conta dela, submódulo
   em `cv32e40p_v1.8.3`, hook ativo, filelist de síntese gerada (33 arquivos,
   clock gate da SAED32). Falta a etapa 0 do Apolônio (acesso ao repositório e
@@ -75,7 +75,7 @@ Depois: etapas 1 (entender o processador) a 6 (entrega da síntese).
 | Corners (ss 0,95 V) | aplicado; a dupla prova no estudo E01 | ADR-006, E01 |
 | Inserção automática de clock gating | desligada no `03` (bloco 3.0b, fonte: `man set_clock_gating_objects`); a dupla confere no E06 | ADR-009, E06 |
 | Atrasos de E/S do SDC | premissa em estudo; perguntar ao professor com alternativas | ADR-007, E04 |
-| Violações elétricas na síntese | perguntar ao professor onde termina a síntese lógica | E03 |
+| Violações elétricas na síntese | proposta: relatar na síntese, zero no 06 (critérios 03.3 e 06.4); confirmar com o professor | E03 |
 | Margens (derate, incerteza) | medir e perguntar ao professor | ADR-008, E08 |
 | TIEH/TIEL liberadas no `03` | levar como pergunta ao professor | ADR-010 |
 | Potência nos três corners | feito (18/11): ss 42,3 / tt 51,1 / ff 72,0 mW; entender o vazamento alto e a interna negativa no ff | ADR-006, E06 |
