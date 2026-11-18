@@ -64,9 +64,10 @@ ESPERADO = {
     "3.3": ["`report_area` sem erro. No `report_qor` do 3.4: `Hierarchical Cell Count: 1` (o `core_i`; tudo abaixo dele foi desfeito)."],
     "3.4": ["O `report_qor -summary` mostra **uma linha por cenário** em setup e em hold, mais a linha `Design` (o resumo, não um corner; estudo E02), com 3 casas decimais.",
             "Os arquivos `03_timing_setup_{ss,tt,ff}.rpt`, `03_timing_hold_{ss,tt,ff}.rpt`, `03_violacoes_eletricas.rpt`, `03_timing_in2out.rpt`, `03_power_tt.rpt` e `03_clock_gating.rpt` aparecem em `rpt/`.",
-            "O `03_clock_gating.rpt` mostra **1** clock gate. O relatório o chama de \"Tool-Inserted\", mas ele é o do RTL: confira com `grep CGLPPRX2_HVT outputs/cv32e40p_top_syn.v` (aparece só o `sleep_unit_i/core_clock_gate_i/u_icg`).",
+            "O `03_clock_gating.rpt` mostra **1** clock gate. O relatório o chama de \"Tool-Inserted\" (e \"Pre-Existing 0\"), mas a instância é a do RTL (`sleep_unit_i/core_clock_gate_i/u_icg`; confira na netlist depois do 3.5). Por que a ferramenta o classifica assim ainda está em estudo (E06).",
             "Avisos TIM-010 no relatório entrada→saída, em bits que o RTL não usa (`boot_addr_i[1:0]`, bits reservados de `irq_i`...), são esperados."],
-    "3.5": ["`### 03_synth pronto`. Em `outputs/`: `cv32e40p_top_syn.v` (netlist) e `cv32e40p_top_syn.sdc`."],
+    "3.5": ["`### 03_synth pronto`. Em `runs/<pasta>/outputs/`: `cv32e40p_top_syn.v` (netlist) e `cv32e40p_top_syn.sdc`.",
+            "No terminal Linux: `grep -c '^module' runs/<pasta>/outputs/cv32e40p_top_syn.v` dá `2`; `grep CGLPPRX2_HVT runs/<pasta>/outputs/cv32e40p_top_syn.v` mostra só o `sleep_unit_i/core_clock_gate_i/u_icg`."],
 }
 
 # bloco -> o que a Alanna obteve na rodada pnr_hvt_20261117-170523 (17/11/2026).
@@ -78,11 +79,11 @@ REFERENCIA = {
     "2.4": "PVT-032 (no PVT mismatches) em ss, tt e ff; 12 avisos UIC-061.",
     "2.5": "`clk_i 8.00 {0 4}`; dois avisos UIC-034 (clock redefinido ao ler o SDC nos três cenários).",
     "2.6": "Setup e Hold `true` em `func_ss`, `func_tt` e `func_ff`; potência só no `func_tt`.",
-    "2.8": "313 avisos TCK-001, todos `case constant`; 0 erros. `report_case_analysis`: só `scan_cg_en_i = 0`.",
+    "2.8": "313 avisos TCK-001, todos `case constant` (259 em pinos `synch_enable`, 53 em `next_state`, 1 no `SE` do clock gate); 0 erros. `report_case_analysis`: só `scan_cg_en_i = 0`.",
     "3.0": "`1`, com aviso ATTR-12 (a mudança fica no bloco, não na biblioteca).",
     "3.0b": "`Exclude | Both | core_i`.",
-    "3.1": "Cerca de 2 minutos. 10.927 células, 44.541 µm², 2.131 sequenciais, 1 clock gate (o do RTL). Pior caminho, antes de otimizar: ss −6,11, tt −4,30, ff −0,48 ns.",
-    "3.2": "Cerca de 4 min 40 s. `Tie cells: TIEL=114 TIEH=0`. 51.644 µm², 14.759 células, 2.130 sequenciais.",
+    "3.1": "Cerca de 2 minutos. 10.927 células, 44.541 µm², 2.131 sequenciais, 1 clock gate (instância do RTL). Pior caminho, antes de otimizar: ss −6,11, tt −4,30, ff −0,48 ns.",
+    "3.2": "Cerca de 4 min 40 s. `Tie cells: TIEL=114 TIEH=0`. 51.644 µm², 14.759 células (12.629 combinacionais, já contando as 114 TIEL, e 2.130 sequenciais: 2.129 registradores e o clock gate).",
     "3.3": "`Hierarchical Cell Count: 1`.",
     "3.4": "`report_qor -summary`: setup ff +0,762, ss −1,287 (1011 caminhos), tt −0,130 (19); hold ff −0,003 (1), ss +0,229, tt +0,097; 1340 redes com violação elétrica. Folga registrador → registrador: ss +0,27, tt +2,48, ff +5,77 (fecha nos três). Potência tt ≈ 51 mW.",
     "3.5": "`cv32e40p_top_syn.v` com 2 módulos; avisos VW-007 (nomes de fios trocados pelo da porta).",
@@ -183,6 +184,7 @@ fim deste guia.
 No terminal do servidor (dentro do `tmux`):
 
 ```
+cd ~
 git clone --recurse-submodules https://github.com/alannasant0s/cv32e40p-asic-flow.git
 cd ~/cv32e40p-asic-flow
 git config core.hooksPath .githooks
@@ -292,8 +294,17 @@ foram abortados. SVF: 602 dicas aceitas e 0 rejeitadas, incluindo 270
 
 ## Se o fc_shell fechar no meio
 
-Abra de novo, na pasta do projeto, e diga qual rodada continuar **antes** de
-carregar as variáveis (senão uma pasta nova é criada):
+Reconecte, volte ao `tmux` (`tmux attach -t fc`, ou `tmux new -s fc` se ele
+não existir mais) e abra o `fc_shell` de novo na pasta do projeto:
+
+```
+cd ~/cv32e40p-asic-flow
+source /Tools/synopsys-scripts/snps.sh
+fc_shell
+```
+
+No `fc_shell>`, diga qual rodada continuar **antes** de carregar as
+variáveis (senão uma pasta nova é criada):
 
 ```
 set RUN_DIR [pwd]/runs/<rodada>

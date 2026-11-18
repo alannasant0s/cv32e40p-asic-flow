@@ -15,7 +15,7 @@
 # A rodada é sempre informada: o script não escolhe sozinho.
 
 # ==== Passo 1 — Caminhos =====================================================
-if {![info exists VT]} { set VT rvt }
+if {![info exists VT]} { error "Informe a família: -x \"set VT hvt; ...\"" }
 if {$VT ni {rvt lvt hvt}} { error "VT inválido: '$VT' (use rvt, lvt ou hvt)" }
 
 set REPO   [exec git rev-parse --show-toplevel]

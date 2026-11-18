@@ -36,7 +36,7 @@ Como procurar erros num log: `grep -n "^Error" <arquivo.log>`. No `fc_shell`,
 |---|---|---|
 | `analyze` ou `elaborate` termina com `0` | falha na leitura do RTL | procure a primeira linha `Error:` acima dele. Confira se rodou `scripts/gen_filelist.sh --synthesis` |
 | `VER-61` "Statement unreachable", `VER-318` "signed to unsigned conversion" | avisos do código do processador (OpenHW, terceiros) | normais |
-| `LNK-067` "already linked" e `set_top_module` devolve `0` | o `elaborate` já tinha feito o link | normal |
+| `set_top_module` devolve `0` | o link do topo falhou | procure a mensagem acima dele. O normal é `Information: User units loaded from library 'saed32hvt_c' (LNK-040)` e `1` |
 | `DES-002` "Cannot find module" | o topo foi chamado pelo nome curto; depois do `elaborate` ele ganha os parâmetros no nome (`cv32e40p_top_COREV_PULP0_...`) | os scripts usam a variável `DESIGN_ELAB` com o nome completo |
 | `DES-149` "cannot be auto-linked" no `02` | faltou o `set_top_module` | o bloco 1.5 faz isso; confira se ele rodou |
 | Aviso TECH-025 (`Layer 'VIA1' 'onGrid' and 'onWireTrack' coexist`) no `create_lib` | vem do arquivo de tecnologia da SAED32 | esperado; não é erro |
@@ -85,7 +85,7 @@ Como procurar erros num log: `grep -n "^Error" <arquivo.log>`. No `fc_shell`,
 | Mensagem | Causa | O que fazer |
 |---|---|---|
 | `FMR_ELAB-116` "unique case but some items may overlap", `FMR_VLOG-063` "Signed to unsigned assignment" | avisos do RTL do OpenHW (fifo, controller, ALU) | esperados; por causa deles o `status.rpt` avisa que o resultado "pode discordar de um simulador" |
-| `1(0) Unmatched reference(implementation) compare points` com `aligner_ready_q_reg` | registrador do RTL que a síntese removeu | se a verificação passa, a lógica ficou equivalente sem ele; o motivo da remoção está em estudo |
+| `1(0) Unmatched reference(implementation) compare points` com `aligner_ready_q_reg` | registrador do RTL que não aparece na netlist | se a verificação passa, a lógica ficou equivalente sem ele; o motivo da remoção está em estudo |
 | `breakpoint` "Unprocessed" no Guidance Summary | dicas do SVF que o Formality não precisou usar | o próprio Formality diz que podem ser ignoradas quando a verificação passa |
 
 ## Netlist

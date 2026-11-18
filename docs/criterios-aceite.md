@@ -41,7 +41,7 @@ sai do estudo e da resposta do professor. Não inventar um limite antes disso.
 | 03.2 | Hold relatado nos três corners e explicado | parte de hold do `report_qor -summary` nos três corners: números relatados e pior caminho lido e explicado (estudo E07), sem limite próprio até a resposta do professor. O hold tem que fechar no 07 (critério 07.1) |
 | 03.3 | Violações elétricas contadas e explicadas | contagem por corner e por **rede única** (estudo E03). A síntese pode terminar com violações se o estudo E03 e o professor confirmarem que elas são corrigidas no 06. **Zero é exigido a partir do 06** |
 | 03.4 | Caminhos entrada → saída | `rpt/03_timing_in2out.rpt` (um bloco por cenário): nenhum violando, ou explicado no estudo E04. Avisos TIM-010 em bits que o RTL não usa são esperados |
-| 03.5 | Netlist flat abaixo do core | `report_qor`: "Hierarchical Cell Count: 1" (é o `core_i`, cv32e40p_core; tudo abaixo dele foi desfeito) e `grep -c '^module' outputs/*_syn.v` = 2. Ao relatar, dizer "flat abaixo do core_i" |
+| 03.5 | Netlist flat abaixo do core | `report_qor`: "Hierarchical Cell Count: 1" (é o `core_i`, cv32e40p_core; tudo abaixo dele foi desfeito) e `grep -c '^module' runs/<pasta>/outputs/*_syn.v` = 2 (depois do bloco 3.5). Ao relatar, dizer "flat abaixo do core_i" |
 | 03.6 | Nenhuma célula proibida por nós | o `03_synth.tcl` não tem `set_dont_use`; uma célula de exemplo, como a `OR2X1_HVT`, não está marcada: `get_attribute [get_lib_cells */OR2X1_HVT] dont_use` dá `false` (uma resposta por corner da biblioteca) |
 | 03.7 | RTL e netlist equivalentes | Formality (`tool_data/fm/fm.tcl`, com a netlist desta rodada): "Verification SUCCEEDED"; o script para com erro se não passar. Ler e anotar o bloco "Auto Setup Summary" do `status.rpt` (as premissas em que o resultado vale) |
 | 03.8 | Números da síntese registrados | área, número de células, potência do tt (estimativa, sem atividade real) |
@@ -54,14 +54,14 @@ sai do estudo e da resposta do professor. Não inventar um limite antes disso.
 | 02.1 a 02.5 | cumpridos |
 | 02.6 | derate ±5 % e incerteza 0,30 / 0,10 ns em uso; registrar no estudo E08 |
 | 03.1 | não passa: ss −1,287 ns e tt −0,130 ns (entradas e saídas; registrador → registrador fecha nos três). Estudo E04 |
-| 03.2 | relatado: ff −0,003 ns (1 caminho, clock ideal), ss +0,229, tt +0,097. Explicar no E07 |
+| 03.2 | relatado: ff −0,003 ns (1 caminho: `alu_div_i/Cnt_DP_reg[0]` ligado nele mesmo; o dado chega em 0,08 ns e o exigido é 0,10 de incerteza − 0,02 de hold da biblioteca = 0,08), ss +0,229, tt +0,097. Explicar no E07 |
 | 03.3 | não passa: 1340 redes únicas. Estudo E03 e pergunta ao professor |
 | 03.4 | entrada → saída: ss −0,14 ns (6 caminhos). Estudo E04 |
-| 03.5 | cumprido: `Hierarchical Cell Count: 1`, netlist com 2 módulos |
+| 03.5 | `Hierarchical Cell Count: 1` conferido; falta registrar o `grep -c '^module'` da netlist (deve dar 2) |
 | 03.6 | a conferir com o `get_attribute` do critério |
-| 03.7 | cumprido: Formality SUCCEEDED, 2243 pontos, 0 falhas |
+| 03.7 | SUCCEEDED (2243 pontos, 0 falhas). Falta explicar o ponto sem par (`aligner_ready_q_reg`), como pede o `docs/flow-spec.md` |
 | 03.8 | registrado: 51.644 µm², 14.759 células, potência tt ≈ 51 mW (estimativa) |
-| 03.9 | cumprido: só o clock gate do RTL (estudo E06) |
+| 03.9 | 1 clock gate, instância do RTL (`sleep_unit_i/core_clock_gate_i/u_icg`). O `report_clock_gating` o chama de "Tool-Inserted" e diz "Pre-Existing 0": explicar no E06 antes de dar como cumprido |
 
 ## Etapa 04 — floorplan
 

@@ -101,7 +101,7 @@ report_timing -scenarios [all_scenarios] -report_by scenario
 # Com o ungroup ligado (01, bloco 1.6), a netlist sai flat.
 # CONFERIR: "Hierarchical Cell Count: 1" no report_qor (bloco 3.4). Esse 1 é o
 # core_i (cv32e40p_core): o topo instancia o core, e tudo abaixo dele foi
-# desfeito. Outra conferência: grep -c '^module' outputs/*_syn.v dá 2.
+# desfeito. A netlist só é gravada no 3.5; a contagem de módulos fica lá.
 report_area
 report_area > $RPT_DIR/03_area.rpt
 
@@ -146,4 +146,9 @@ save_block -as ${DESIGN}_syn
 save_lib
 write_verilog $OUT_DIR/${DESIGN}_syn.v
 write_sdc -output $OUT_DIR/${DESIGN}_syn.sdc
+# CONFERIR (no terminal Linux, depois deste bloco, trocando <pasta>):
+#     grep -c '^module' runs/<pasta>/outputs/cv32e40p_top_syn.v
+# dá 2 (topo e core: flat abaixo do core_i), e
+#     grep CGLPPRX2_HVT runs/<pasta>/outputs/cv32e40p_top_syn.v
+# mostra um único clock gate, o sleep_unit_i/core_clock_gate_i/u_icg do RTL.
 puts "### 03_synth pronto. Próximo: floorplan (tool_data/fc/04_floorplan.tcl)"

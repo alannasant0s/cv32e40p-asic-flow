@@ -193,7 +193,7 @@ como "Tool-Inserted"; a netlist mostra que ele é o do RTL.
 
 ## ADR-010: Células proibidas e liberadas
 
-- **Status:** vigente (proibição); pendente (TIEH/TIEL)
+- **Status:** vigente (proibição); TIEH/TIEL liberadas no `03_synth.tcl` (bloco 3.0), à espera da confirmação do professor
 - **Fonte primária:** requisito do projeto (proibir uma célula com `dont_use`
   vale para todo o design e exige estudo sólido)
 - **Estudo:** `docs/estudos/E05-or2x1.md`

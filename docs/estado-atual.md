@@ -13,7 +13,8 @@ cada sessão, no mesmo commit das mudanças.
 - O repositório começa com os scripts do fluxo prontos (simulação, lint, NDM,
   síntese `01` a `03`, físico `04` a `09`, Formality), o método de trabalho, os
   critérios de aceite, as decisões vigentes e os estudos E01 a E10.
-- **Síntese lógica concluída pela Alanna (2026-11-17),** rodada
+- **Primeira rodada da síntese executada pela Alanna (2026-11-17), ainda
+  não aceita** (03.1 e 03.3 não passam; não é a entrega), rodada
   `pnr_hvt_20261117-170523` (registro em `docs/rodadas/`). Setup: ff +0,762,
   ss −1,287, tt −0,130 ns; registrador → registrador fecha nos três corners;
   violam caminhos de entrada e saída (E04). Hold ff −0,003 ns (clock ideal).

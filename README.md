@@ -26,7 +26,7 @@ cv32e40p (Solderpad Hardware License).*
 |---|---|
 | Simulação do RTL (VCS) e lint | scripts prontos (`tool_data/vcs/`, `tool_data/lint/`) |
 | Biblioteca (NDM) e corners | scripts prontos; corners definidos pelo databook da biblioteca (estudo E01) |
-| **Síntese lógica** (scripts `01` a `03`) e Formality | **primeira rodada completa (17/11/2026)**: Formality SUCCEEDED; registrador → registrador fecha nos três corners; entradas/saídas e regras elétricas em estudo (E04, E03), com perguntas ao professor. Entrega prevista para o fim de novembro de 2026 |
+| **Síntese lógica** (scripts `01` a `03`) e Formality | **primeira rodada executada (17/11/2026), ainda não aceita**: Formality SUCCEEDED; registrador → registrador fecha nos três corners; setup de entradas/saídas e regras elétricas não passam nos critérios (estudos E04, E03, com perguntas ao professor). Entrega prevista para o fim de novembro de 2026 |
 | Floorplan, alimentação, placement, árvore de clock, roteamento, acabamento (`04` a `09`) | scripts prontos; rodam depois da síntese aceita, com os estudos E09 e E10 antes |
 
 Os resultados entram aqui quando cada etapa passar nos critérios de aceite.
@@ -92,7 +92,7 @@ lm_shell -x "set VT hvt" -file tool_data/fc/create_ndm.tcl -batch
 fc_shell                                      # e então os blocos do 01 ao 03
 ```
 
-O passo a passo está em [docs/plano-de-trabalho.md](docs/plano-de-trabalho.md).
+O plano está em [docs/plano-de-trabalho.md](docs/plano-de-trabalho.md) e o passo a passo da síntese, comando por comando, em [docs/passo-a-passo-sintese.md](docs/passo-a-passo-sintese.md).
 Os caminhos do PDK ficam em `tool_data/fc/00_tech_setup.tcl`.
 
 ## Organização
