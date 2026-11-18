@@ -60,7 +60,7 @@ sai do estudo e da resposta do professor. Não inventar um limite antes disso.
 | 03.5 | cumprido: `Hierarchical Cell Count: 1` e `grep -c '^module'` = 2 (18/11) |
 | 03.6 | cumprido: `dont_use` da `OR2X1_HVT` = `false` (18/11) |
 | 03.7 | cumprido: SUCCEEDED (2243 pontos, 0 falhas). Ponto sem par `aligner_ready_q_reg`: registrador sem carga removido pela síntese (`report_transformed_registers`: `ulr`). FM-399: 188 redes de sinais da FPU/PULP desligados e pinos sem uso (18/11) |
-| 03.8 | registrado: 51.644 µm², 14.759 células, potência tt ≈ 51 mW (estimativa) |
+| 03.8 | registrado: 51.644 µm², 14.759 células, potência (estimativa) ss 42,3 / tt 51,1 / ff 72,0 mW |
 | 03.9 | cumprido: 1 clock gate na netlist, o do RTL (`sleep_unit_i/core_clock_gate_i/u_icg`, `CGLPPRX2_HVT`) |
 
 ## Etapa 04 — floorplan

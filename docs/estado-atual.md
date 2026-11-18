@@ -44,10 +44,8 @@ cada sessão, no mesmo commit das mudanças.
 2. Mandar ao professor o relatório da síntese e as perguntas abertas: atrasos
    de entrada e saída (E04), regras elétricas na síntese (E03), margens e
    CRPR (E08), células TIEH/TIEL.
-3. Rodar as conferências pendentes da rodada (seção "Conferências pendentes"
-   em `docs/rodadas/pnr_hvt_20261117-170523.md`): 03.5, 03.6, potência nos
-   três corners, `aligner_ready_q` e FM-399. Depois, a etapa 2 (`docs/sim-vcs.md`
-   e `docs/lint.md`).
+3. Conferências de 18/11 feitas (03.5, 03.6, 03.7 cumpridos; potência nos
+   três corners). Próximo: a etapa 2 (`docs/sim-vcs.md` e `docs/lint.md`).
 
 Em paralelo:
 
@@ -80,7 +78,7 @@ Depois: etapas 1 (entender o processador) a 6 (entrega da síntese).
 | Violações elétricas na síntese | perguntar ao professor onde termina a síntese lógica | E03 |
 | Margens (derate, incerteza) | medir e perguntar ao professor | ADR-008, E08 |
 | TIEH/TIEL liberadas no `03` | levar como pergunta ao professor | ADR-010 |
-| Potência nos três corners | relatada no `03` (bloco 3.4); falta rodar no bloco salvo de 17/11 | ADR-006 |
+| Potência nos três corners | feito (18/11): ss 42,3 / tt 51,1 / ff 72,0 mW; entender o vazamento alto e a interna negativa no ff | ADR-006, E06 |
 | Relatórios e logs no Git | decidir se as rodadas oficiais entram (permitido pelo professor) | ADR-015 |
 | Restrições da árvore de clock | estudar antes do `07` | E09 |
 | Antena, densidade, LVS, pinos de alimentação | estudar antes do `08` | E10 |
