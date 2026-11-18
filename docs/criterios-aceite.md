@@ -57,9 +57,9 @@ sai do estudo e da resposta do professor. Não inventar um limite antes disso.
 | 03.2 | relatado: ff −0,003 ns (1 caminho: `alu_div_i/Cnt_DP_reg[0]` ligado nele mesmo; o dado chega em 0,08 ns e o exigido é 0,10 de incerteza − 0,02 de hold da biblioteca = 0,08), ss +0,229, tt +0,097. Explicar no E07 |
 | 03.3 | não passa: 1340 redes únicas. Estudo E03 e pergunta ao professor |
 | 03.4 | entrada → saída: ss −0,14 ns (6 caminhos). Estudo E04 |
-| 03.5 | `Hierarchical Cell Count: 1` conferido; falta registrar o `grep -c '^module'` da netlist (deve dar 2) |
-| 03.6 | a conferir com o `get_attribute` do critério |
-| 03.7 | SUCCEEDED (2243 pontos, 0 falhas). Falta explicar o ponto sem par (`aligner_ready_q_reg`), como pede o `docs/flow-spec.md` |
+| 03.5 | cumprido: `Hierarchical Cell Count: 1` e `grep -c '^module'` = 2 (18/11) |
+| 03.6 | cumprido: `dont_use` da `OR2X1_HVT` = `false` (18/11) |
+| 03.7 | cumprido: SUCCEEDED (2243 pontos, 0 falhas). Ponto sem par `aligner_ready_q_reg`: registrador sem carga removido pela síntese (`report_transformed_registers`: `ulr`). FM-399: 188 redes de sinais da FPU/PULP desligados e pinos sem uso (18/11) |
 | 03.8 | registrado: 51.644 µm², 14.759 células, potência tt ≈ 51 mW (estimativa) |
 | 03.9 | cumprido: 1 clock gate na netlist, o do RTL (`sleep_unit_i/core_clock_gate_i/u_icg`, `CGLPPRX2_HVT`) |
 
