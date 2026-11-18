@@ -1,4 +1,4 @@
-# CV32E40P — do RTL ao GDSII na SAED32
+# CV32E40P - RTL ao GDSII utilizando SAED32
 
 Implementação física do processador RISC-V **CV32E40P** (OpenHW Group, RV32IMC)
 como bloco sem pads, com o **Synopsys Fusion Compiler** e a biblioteca
