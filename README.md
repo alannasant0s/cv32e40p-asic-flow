@@ -66,9 +66,9 @@ projeto físico:
 - **Cada etapa tem critério de aceite numérico**, nos três corners
   ([critérios](docs/criterios-aceite.md)). Exemplo: violação de timing aceita
   só se for menor que 0,01 ns.
-- **Conferir o que a ferramenta faz sozinha.** Na primeira síntese, o Fusion
-  Compiler inseriu 77 clock gates que não estavam no RTL, porque a inserção
-  automática vem ligada por padrão. Desligamos (`set_clock_gating_objects`),
+- **Conferir o que a ferramenta faz sozinha.** Numa síntese de validação, antes desta
+  decisão, o Fusion Compiler inseria clock gates que não estavam no RTL,
+  porque a inserção automática vem ligada por padrão. Desligamos (`set_clock_gating_objects`),
   e a netlist ficou só com o clock gate que o próprio RTL já tem
   ([ADR-009](docs/decisions.md), [estudo E06](docs/estudos/E06-clock-gating.md)).
 
