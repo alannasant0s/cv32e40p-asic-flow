@@ -18,7 +18,7 @@ Como procurar erros num log: `grep -n "^Error" <arquivo.log>`. No `fc_shell`,
 | A ferramenta continua presa depois de fechar a janela do X2Go | fechar a janela não fecha o `fc_shell` | sempre `exit` no console. Para achar o que sobrou: `pgrep -u $USER -a fc_shell` e `kill <número>` |
 | `client_loop: send disconnect: Connection reset` | a conexão SSH caiu; o que rodava direto no terminal pode ter morrido junto | reconecte e confira: `pgrep -u $USER -a _shell` e o fim do log (`tail -5 <arquivo.log>`). Se o log fecha com "Thank you for using...", terminou. Rode sempre dentro do `tmux` (`tmux new -s fc`; voltar com `tmux attach -t fc`) |
 | `cd ~/cv32e40p-asic-flow` dá `ItemNotFoundException` | o comando foi digitado no PowerShell do Windows, antes do `ssh` | conecte primeiro (`ssh <servidor>`) e rode os comandos no prompt do servidor, não no `PS C:...>` do Windows |
-| `fatal: repository not found` ou erro 403 no `clone` | o token do GitHub não tem acesso ao repositório novo | no GitHub, edite o token e adicione o repositório `cv32e40p-asic-flow` |
+| `fatal: repository not found` ou erro 403 no `push` | o token do GitHub não tem permissão de escrita no repositório novo | no GitHub, edite o token e adicione o repositório `cv32e40p-asic-flow` (o clone não precisa de token: o repositório é público) |
 | `NDM-029` (biblioteca travada para edição) | outra sessão do `fc_shell` sua ainda está com a biblioteca aberta | feche a outra sessão (linha acima) e abra de novo |
 
 ## Git
@@ -83,7 +83,7 @@ Como procurar erros num log: `grep -n "^Error" <arquivo.log>`. No `fc_shell`,
 | Mensagem | Causa | O que fazer |
 |---|---|---|
 | `FMR_ELAB-116` "unique case but some items may overlap", `FMR_VLOG-063` "Signed to unsigned assignment" | avisos do RTL do OpenHW (fifo, controller, ALU) | esperados; por causa deles o `status.rpt` avisa que o resultado "pode discordar de um simulador" |
-| `1(0) Unmatched reference(implementation) compare points` com `aligner_ready_q_reg` | registrador do RTL que não aparece na netlist | se a verificação passa, a lógica ficou equivalente sem ele; o motivo da remoção está em estudo |
+| `1(0) Unmatched reference(implementation) compare points` com `aligner_ready_q_reg` | registrador do RTL que não aparece na netlist | se a verificação passa, a lógica ficou equivalente sem ele. Na rodada `pnr_hvt_20261117-170523`, o `report_transformed_registers` mostra `aligner_ready_q_reg` como `ulr` (registrador sem carga, removido pela síntese) |
 | `breakpoint` "Unprocessed" no Guidance Summary | dicas do SVF que o Formality não precisou usar | o próprio Formality diz que podem ser ignoradas quando a verificação passa |
 
 ## Netlist

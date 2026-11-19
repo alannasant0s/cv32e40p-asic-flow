@@ -12,7 +12,7 @@ Próximas melhorias, por ordem:
 1. **Metadados de cada rodada (`meta.json`, seção 2):** família, corners e bibliotecas usadas de fato (`report_pvt`), versão da ferramenta, hash do SDC e do script, commit do git, parâmetros de otimização e `run_id`.
 2. **Testes e validação:** pytest com trechos reais dos relatórios. Falhar de forma explícita quando o relatório estiver incompleto, faltar valor, a unidade for diferente da esperada, ou quando uma comparação misturar rodadas de commits ou SDCs diferentes.
 3. **Análises da síntese:**
-   - leakage nos corners ss a 125 °C, ss a −40 °C e ff, para ver a sensibilidade à temperatura (hoje a potência só sai no tt);
+   - leakage nos corners ss a 125 °C, ss a −40 °C e ff, para ver a sensibilidade à temperatura (o `03` já grava a potência nos três corners; o coletor ainda lê só o `03_power_tt.rpt`);
    - uso de células (`report_reference`).
 4. **Depois do fluxo físico:** degradação do timing entre a síntese e o pós-roteamento; depois, comparação entre famílias (gráficos de PPA por família).
 

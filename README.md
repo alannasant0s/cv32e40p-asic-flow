@@ -12,8 +12,9 @@ trilha de Physical Design (2026).
 > *English summary:* RTL-to-GDSII implementation of the OpenHW CV32E40P RISC-V
 > core (RV32IMC) as a padless hard block, using Synopsys Fusion Compiler and the
 > SAED32 32 nm educational library (HVT cells), at 8 ns (125 MHz), analysed in
-> three PVT corners. Work in progress: logic synthesis done, physical stages
-> next. Each design decision is tied to a primary source and a written study
+> three PVT corners. Work in progress: RTL simulation and lint passed; first
+> logic synthesis run done (Formality equivalent) but not yet accepted (I/O
+> paths fail setup in ss/tt, pending advisor feedback); physical stages next. Each design decision is tied to a primary source and a written study
 > (studies in progress), and every stage has numeric acceptance criteria. Documentation
 > is in Brazilian Portuguese.
 
@@ -27,7 +28,7 @@ cv32e40p (Solderpad Hardware License).*
 | Etapa | Situação |
 |---|---|
 | Simulação do RTL (VCS) e lint | **simulação passou (18/11/2026)**: "Hello World" e `EXIT SUCCESS` ([registro](docs/sim-vcs.md)); **lint passou (18/11/2026)**: 0 latches, todos os avisos justificados ([registro](docs/lint.md)) |
-| Biblioteca (NDM) e corners | scripts prontos; corners definidos pelo databook da biblioteca (estudo E01) |
+| Biblioteca (NDM) e corners | **feita (17/11/2026)**: NDM da HVT com 0 erros, quatro corners ([registro](docs/rodadas/pnr_hvt_20261117-170523.md)); corners pelo databook da biblioteca (estudo E01, a concluir) |
 | **Síntese lógica** (scripts `01` a `03`) e Formality | **primeira rodada executada (17/11/2026), ainda não aceita.** Setup de entradas e saídas no ss e no tt fora do critério (estudo E04); violações elétricas relatadas e explicadas, com zero exigido no placement (estudo E03). Perguntas enviadas ao professor em 18/11/2026, aguardando resposta. Entrega prevista para o fim de novembro de 2026 |
 | Floorplan, alimentação, placement, árvore de clock, roteamento, acabamento (`04` a `09`) | scripts prontos; rodam depois da síntese aceita, com os estudos E09 e E10 antes |
 

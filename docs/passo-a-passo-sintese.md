@@ -14,7 +14,7 @@ Biblioteca HVT, clock de 8 ns (125 MHz), três corners (ss 0,95 V 125 °C; tt
 ## Primeiro: o repositório mudou
 
 Em 14/11/2026 a dupla criou um **repositório novo e limpo**:
-`https://github.com/alannasant0s/cv32e40p-asic-flow`. Ele vai ser público
+`https://github.com/alannasant0s/cv32e40p-asic-flow`. Ele é público desde 18/11/2026
 (portfólio), então só tem o que pode ser publicado: os nossos scripts, os
 documentos, os estudos e os relatórios. Ficou de fora tudo o que não pode
 sair: arquivos e trechos da biblioteca SAED32 (PDK), scripts confidenciais e
@@ -920,7 +920,7 @@ foram abortados. SVF: 602 dicas aceitas e 0 rejeitadas, incluindo 270
 `reg_constant`, os mesmos 270 registradores constantes do 3.1. Avisos do RTL:
 33 FMR_ELAB-116 e 22 FMR_VLOG-063; por isso o relatório avisa que o resultado
 "pode discordar de um simulador". Um ponto do RTL ficou sem par:
-`aligner_ready_q_reg`, removido pela síntese (ainda a estudar).
+`aligner_ready_q_reg`: registrador sem carga, removido pela síntese (`report_transformed_registers`: `ulr`).
 
 ## Resumo: os números a que você deve chegar
 

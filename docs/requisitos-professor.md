@@ -56,9 +56,10 @@ A entrega da síntese lógica precisa ter:
 6. Prints direto do terminal (R5).
 7. Tudo rodado e explicado pela dupla (`docs/metodo-de-trabalho.md`).
 
-## Perguntas que vamos levar ao professor (com dados e alternativas)
+## Perguntas ao professor (com dados e alternativas)
 
-- Onde termina a "síntese lógica" no nosso fluxo, diante das violações
-  elétricas (E03).
-- Que ambiente supor para a memória e o barramento nos atrasos de E/S (E04).
-- Que margens ele considera adequadas (E08).
+- Enviadas em 2026-11-18 (aguardando resposta): onde termina a "síntese
+  lógica" no nosso fluxo, diante das violações elétricas (E03); que ambiente
+  supor para a memória e o barramento nos atrasos de E/S (E04).
+- A levar: que margens ele considera adequadas (E08); liberar TIEH/TIEL na
+  síntese (ADR-010).
