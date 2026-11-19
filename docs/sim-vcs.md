@@ -90,7 +90,7 @@ Não há métrica numérica nesta etapa: o resultado é binário, passou ou não
 
 | Rodada (hash do git) | Quem rodou / quem conferiu | Hello World + EXIT SUCCESS? | Avisos além do RT-NCMUCS |
 |---|---|---|---|
-| 2026-11-18, `15f9a5c`, VCS X-2025.06-SP2 | Alanna / Alanna | sim: "Hello World", `EXIT SUCCESS`, `$finish` em 360 ns | 2 `AOUP` e 4 `IDTS`, todos do testbench (explicados acima) |
+| 2026-11-18, `15f9a5c`, VCS X-2025.06-SP2 | Alanna / Alanna e Apolonio | sim: "Hello World", `EXIT SUCCESS`, `$finish` em 360 ns | 2 `AOUP` e 4 `IDTS`, todos do testbench (explicados acima) |
 
 ## Limitação
 

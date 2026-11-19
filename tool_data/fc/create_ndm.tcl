@@ -25,7 +25,7 @@
 # sozinho ("Information: Fixed direction mismatches ... (LM-054)").
 #
 # Corners usados (estudo E01), conferidos no databook da biblioteca:
-#   /Tools/PDK/SAED32/EDK_Digital/doc/SAED32.28nm_Digital_Standard_Cell_Library_b100_01312012.pdf
+#   SAED32.28nm Digital Standard Cell Library, rev. 01/2012 (pasta doc do PDK).
 #   Tabela 1.4 (p. 18): biblioteca especificada para 1,05 V. (A faixa de
 #   tensão escrita lá não bate com o ff de 1,16 V: o argumento que vale é a
 #   Tabela 1.6, abaixo.)

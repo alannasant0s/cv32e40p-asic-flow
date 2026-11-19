@@ -107,7 +107,7 @@ módulos. Nos relatórios, dizer "flat abaixo do core_i".
 
 - **Status:** proposta (vale nos scripts; fica vigente quando a dupla concluir o estudo E01)
 - **Fonte primária:** databook da biblioteca
-  (`/Tools/PDK/SAED32/EDK_Digital/doc/SAED32.28nm_Digital_Standard_Cell_Library_b100_01312012.pdf`):
+  (SAED32.28nm Digital Standard Cell Library, rev. 01/2012, na pasta `doc` do PDK):
   Tabela 1.6 (p. 19), corners agrupados em conjuntos de tensão; §1.3 (p. 18),
   biblioteca especificada para 1,05 V. Atributos `nom_*` de cada `.lib`.
 - **Estudo:** `docs/estudos/E01-corners.md`

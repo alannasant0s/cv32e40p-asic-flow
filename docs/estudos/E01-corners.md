@@ -34,8 +34,8 @@ conjunto usar e qual arquivo vale para cada corner.
 
 ## Fonte primária
 
-Databook da biblioteca, na instalação do PDK:
-`/Tools/PDK/SAED32/EDK_Digital/doc/SAED32.28nm_Digital_Standard_Cell_Library_b100_01312012.pdf`
+Databook da biblioteca, na pasta `doc` da instalação do PDK:
+SAED32.28nm Digital Standard Cell Library, rev. 01/2012.
 
 - **Tabela 1.6 (p. 19), "Base Characterization Corners":** os 27 corners vêm
   em três conjuntos de tensão. **É este o argumento da decisão.**
@@ -67,11 +67,13 @@ diferentes mistura o efeito do corner com o da otimização.
    18 e 19. Anotar, com as nossas palavras, o que cada conjunto significa, e
    a inconsistência da Tabela 1.4.
 2. **Ver os arquivos existentes:**
-   `ls /Tools/PDK/SAED32/EDK_Digital/lib/stdcell_hvt/db_nldm/ | grep -E "^saed32hvt_(ss|tt|ff)"`.
+   `ls $PDK/lib/stdcell_hvt/db_nldm/ | grep -E "^saed32hvt_(ss|tt|ff)"`.
    Existem arquivos dos três conjuntos. Existir não diz qual usar.
 3. **Conferir a condição dentro do arquivo.** Ler só três atributos (sem
    copiar o arquivo para lugar nenhum):
-   `grep -m3 -E "nom_(process|voltage|temperature)" /Tools/PDK/SAED32/EDK_Digital/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p95v125c.lib`.
+   `grep -m3 -E "nom_(process|voltage|temperature)" $PDK/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p95v125c.lib`
+   (`$PDK` é a pasta da biblioteca, a mesma da variável `PDK` do
+   `00_tech_setup.tcl`; no terminal, defina antes com `PDK=<essa pasta>`).
    Esperado: 0,95 V, 125 °C, processo 0,99, os números do `array set PVT`
    do `02_scenarios.tcl`.
 4. **Gerar a NDM:**
