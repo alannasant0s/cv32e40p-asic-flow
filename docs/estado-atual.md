@@ -6,7 +6,7 @@ polo UFCG (trilha de Physical Design), 2026.
 **Leia isto primeiro ao retomar o trabalho** (pessoa ou IA). Atualize no fim de
 cada sessão, no mesmo commit das mudanças.
 
-Última atualização: 2026-11-18.
+Última atualização: 2026-11-19.
 
 ## Onde estamos
 
@@ -52,7 +52,10 @@ cada sessão, no mesmo commit das mudanças.
 2. **Mensagem ao professor enviada (2026-11-18)**, com os prints do resumo de
    timing e da folga registrador → registrador. Perguntas: manter ou mudar os
    atrasos de entrada e saída (E04) e onde corrigir as violações elétricas
-   (E03). Aguardando a resposta. Margens e CRPR (E08) e TIEH/TIEL ficam para
+   (E03). **Resposta em 19/11:** o professor marcou **reunião para
+   segunda, 23/11**, para esclarecer as perguntas. Preparar a reunião com
+   explicação simples e dados medidos (E04: efeito dos atrasos de E/S na
+   folga). Margens e CRPR (E08) e TIEH/TIEL ficam para
    depois, se ele não comentar.
 3. Conferências de 18/11 feitas (03.5, 03.6, 03.7 cumpridos; potência nos
    três corners). Etapa 2 concluída (18/11): simulação e lint passaram (`docs/sim-vcs.md`,
@@ -65,7 +68,7 @@ Em paralelo:
 
 `docs/plano-de-trabalho.md`, **etapa 1** (entender o processador: diagrama de
 blocos, pipeline, interfaces OBI, interrupções; estudo E04, passos 1 e 2). A pergunta dos atrasos de E/S já foi enviada
-(18/11); aguardando resposta.
+(18/11); resposta em 19/11: o professor marcou reunião para segunda, 23/11, para esclarecer as perguntas.
 
 Para rodar a síntese linha por linha: `docs/passo-a-passo-sintese.md` (gerado
 dos scripts por `scripts/docs/gera_passo_a_passo.py`; mudou um script, gere de novo).
@@ -88,8 +91,8 @@ Depois: etapas 1 (entender o processador) a 6 (entrega da síntese).
 |---|---|---|
 | Corners (ss 0,95 V) | aplicado; a dupla prova no estudo E01 | ADR-006, E01 |
 | Inserção automática de clock gating | desligada no `03` (bloco 3.0b, fonte: `man set_clock_gating_objects`); conferida na rodada de 17/11 (1 clock gate, o do RTL; 03.9 cumprido); falta entender a potência no E06 | ADR-009, E06 |
-| Atrasos de E/S do SDC | premissa em estudo; pergunta enviada ao professor em 18/11, aguardando resposta | ADR-007, E04 |
-| Violações elétricas na síntese | proposta (relatar na síntese, zero no 06; critérios 03.3 e 06.4) enviada ao professor em 18/11, aguardando resposta | E03 |
+| Atrasos de E/S do SDC | premissa em estudo; pergunta enviada em 18/11; resposta em 19/11: o professor marcou reunião para segunda, 23/11, para esclarecer as perguntas | ADR-007, E04 |
+| Violações elétricas na síntese | proposta (relatar na síntese, zero no 06; critérios 03.3 e 06.4) enviada em 18/11; resposta em 19/11: o professor marcou reunião para segunda, 23/11, para esclarecer as perguntas | E03 |
 | Margens (derate, incerteza) | medir e perguntar ao professor | ADR-008, E08 |
 | TIEH/TIEL liberadas no `03` | levar como pergunta ao professor | ADR-010 |
 | Potência nos três corners | feito (18/11): ss 42,3 / tt 51,1 / ff 72,0 mW; entender o vazamento alto e a interna negativa no ff | ADR-006, E06 |
@@ -99,7 +102,7 @@ Depois: etapas 1 (entender o processador) a 6 (entrega da síntese).
 
 ## Perguntas ao professor (com dados e alternativas)
 
-Enviadas em 2026-11-18, sem resposta ainda:
+Enviadas em 2026-11-18; resposta em 19/11: o professor marcou reunião para segunda, 23/11, para esclarecer as perguntas:
 
 1. Atrasos de E/S: que ambiente supor para a memória e o barramento (E04).
 2. Onde termina a síntese lógica diante das violações elétricas (E03).

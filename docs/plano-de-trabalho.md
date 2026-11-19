@@ -25,7 +25,7 @@ depois.
 | 2 — simulação e lint | feita pela Alanna (18/11): simulação com "Hello World" e `EXIT SUCCESS` (`docs/sim-vcs.md`); lint com 0 latches e avisos justificados (`docs/lint.md`) |
 | 3 — NDM e corners | feita pela Alanna (0 erros, quatro corners da HVT) |
 | 4 — síntese bloco a bloco | primeira rodada feita pela Alanna (`docs/rodadas/pnr_hvt_20261117-170523.md`): critérios 02 cumpridos; 03.5, 03.6, 03.7 (Formality: Verification SUCCEEDED, 2243 pontos, 0 falhas) e 03.9 cumpridos; 03.3 relatado e explicado (zero no 06); 03.1 não passa ainda. Falta o Apolônio reproduzir e conferir |
-| 5 — estudos e perguntas | mensagem ao professor enviada (18/11) sobre E04 (entradas e saídas) e E03 (regras elétricas); aguardando resposta. Depois: E08 (margens), TIEH/TIEL. Potência nos três corners feita (18/11) |
+| 5 — estudos e perguntas | mensagem ao professor enviada (18/11) sobre E04 (entradas e saídas) e E03 (regras elétricas); resposta em 19/11: o professor marcou reunião para segunda, 23/11, para esclarecer as perguntas. Depois: E08 (margens), TIEH/TIEL. Potência nos três corners feita (18/11) |
 | 6 — entrega | fim de novembro |
 
 ## Regras do plano

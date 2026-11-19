@@ -58,7 +58,7 @@ A entrega da síntese lógica precisa ter:
 
 ## Perguntas ao professor (com dados e alternativas)
 
-- Enviadas em 2026-11-18 (aguardando resposta): onde termina a "síntese
+- Enviadas em 2026-11-18 (resposta em 19/11: o professor marcou reunião para segunda, 23/11, para esclarecer as perguntas): onde termina a "síntese
   lógica" no nosso fluxo, diante das violações elétricas (E03); que ambiente
   supor para a memória e o barramento nos atrasos de E/S (E04).
 - A levar: que margens ele considera adequadas (E08); liberar TIEH/TIEL na

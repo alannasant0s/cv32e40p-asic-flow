@@ -29,7 +29,7 @@ cv32e40p (Solderpad Hardware License).*
 |---|---|
 | Simulação do RTL (VCS) e lint | **simulação passou (18/11/2026)**: "Hello World" e `EXIT SUCCESS` ([registro](docs/sim-vcs.md)); **lint passou (18/11/2026)**: 0 latches, todos os avisos justificados ([registro](docs/lint.md)) |
 | Biblioteca (NDM) e corners | **feita (17/11/2026)**: NDM da HVT com 0 erros, quatro corners ([registro](docs/rodadas/pnr_hvt_20261117-170523.md)); corners pelo databook da biblioteca (estudo E01, a concluir) |
-| **Síntese lógica** (scripts `01` a `03`) e Formality | **primeira rodada executada (17/11/2026), ainda não aceita.** Setup de entradas e saídas no ss e no tt fora do critério (estudo E04); violações elétricas relatadas e explicadas, com zero exigido no placement (estudo E03). Perguntas enviadas ao professor em 18/11/2026, aguardando resposta. Entrega prevista para o fim de novembro de 2026 |
+| **Síntese lógica** (scripts `01` a `03`) e Formality | **primeira rodada executada (17/11/2026), ainda não aceita.** Setup de entradas e saídas no ss e no tt fora do critério (estudo E04); violações elétricas relatadas e explicadas, com zero exigido no placement (estudo E03). Perguntas enviadas ao professor em 18/11/2026; reunião marcada para 23/11/2026. Entrega prevista para o fim de novembro de 2026 |
 | Floorplan, alimentação, placement, árvore de clock, roteamento, acabamento (`04` a `09`) | scripts prontos; rodam depois da síntese aceita, com os estudos E09 e E10 antes |
 
 ### Primeira rodada da síntese (17/11/2026, HVT, 8 ns)
